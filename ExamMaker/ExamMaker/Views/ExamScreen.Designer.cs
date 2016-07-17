@@ -243,6 +243,7 @@
             this.exportAnsKeyBtn.TabIndex = 18;
             this.exportAnsKeyBtn.Text = "Export Answer Key";
             this.exportAnsKeyBtn.UseVisualStyleBackColor = true;
+            this.exportAnsKeyBtn.Click += new System.EventHandler(this.exportAnsKeyBtn_Click);
             // 
             // previewExamBtn
             // 

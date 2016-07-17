@@ -10,12 +10,17 @@ namespace ExamMaker.Views
 {
     public partial class ExamScreen : Form, IExamView
     {
+        private ExamPresenter _examPresenter;
+        private IExamManager _examManager;
         private readonly Exam _examRecord;
+
+
         private List<ExamItem> _examItems;
         private ExamItem _selectedExamItem;
         private List<string> _correctAnswerIdentifiers;
+        private List<string> _answers; 
         private bool _hasExamItems;
-        private ExamPresenter _examPresenter;
+        
         private bool _hasSelectedRow;
 
         public ExamScreen()
@@ -31,7 +36,9 @@ namespace ExamMaker.Views
             _examItems = _examRecord.ExamItems.OrderBy(e => e.ItemNumber).ToList();
             _hasExamItems = _examItems.Count > 0;
             _hasSelectedRow = false;
+
             _examPresenter = new ExamPresenter(this);
+            _examManager = new ExamManager(examRecord);
         }
 
         private void ExamScreen_Load(object sender, EventArgs e)
@@ -96,28 +103,35 @@ namespace ExamMaker.Views
             itemTypeDd.SelectedIndex = (int)_selectedExamItem.ItemType - 1;
             question.Text = _selectedExamItem.Question;
 
-            List<Option> correctAnswers = new List<Option>();
-            if (_selectedExamItem.Options.Count > 0)
-            {
-                _correctAnswerIdentifiers = new List<string>();
-                correctAnswers = _selectedExamItem.Options
-                    .Where(o => o.IsCorrectAnswer).ToList();
+            //TODO: Format / Set the Answer per ExamItem on Save of
+            //TODO: the ExamItem. Meanwhile, set the answer to Answer field
 
-                correctAnswers.ForEach(addOptionToCorrectAnswerIdentifiers);
+            //List<Option> correctAnswers = new List<Option>();
+            //if (_selectedExamItem.Options.Count > 0)
+            //{
+            //    _correctAnswerIdentifiers = new List<string>();
+            //    correctAnswers = _selectedExamItem.Options
+            //        .Where(o => o.IsCorrectAnswer).ToList();
 
-                answer.Text = String.Join(",", _correctAnswerIdentifiers);
-            }
-            else
-            {
-                answer.Text = _selectedExamItem.Answer;
-            }
+            //    correctAnswers.ForEach(addOptionToCorrectAnswerIdentifiers);
+
+            //    answer.Text = String.Join(",", _correctAnswerIdentifiers);
+            //}
+            //else
+            //{
+            //    answer.Text = _selectedExamItem.Answer;
+            //}
+
+            answer.Text = _selectedExamItem.Answer;
 
             choicesList.Items.Clear();
 
             bool isCorrectAnswer;
+            string[] correctAnswers = _selectedExamItem.Answer.Split(',');
             foreach (var option in _selectedExamItem.Options)
             {
-                isCorrectAnswer = correctAnswers.Contains(option);
+                //isCorrectAnswer = correctAnswers.Contains(option);
+                isCorrectAnswer = correctAnswers.FirstOrDefault(a => a.Equals(option.OptionName)) != null;
                 choicesList.Items.Add(String.Format("{0}. {1}", 
                     option.OptionName, option.Description), 
                     isCorrectAnswer);
@@ -142,8 +156,12 @@ namespace ExamMaker.Views
             {
                 loadSelectedExamItemInfo();
             }
-            
 
+        }
+
+        private void exportAnsKeyBtn_Click(object sender, EventArgs e)
+        {
+            _examManager.ExportAnswerKey();
         }
 
     }
