@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3C34C39-0F3B-435B-84A3-41E218DA8F49}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExamMaker.Models</RootNamespace>
+    <AssemblyName>ExamMaker.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\201607170330469_Add_Exams_To_User.cs" />
+    <Compile Include="Migrations\201607170330469_Add_Exams_To_User.Designer.cs">
+      <DependentUpon>201607170330469_Add_Exams_To_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607170350371_Add_UserId_To_Exam.cs" />
+    <Compile Include="Migrations\201607170350371_Add_UserId_To_Exam.Designer.cs">
+      <DependentUpon>201607170350371_Add_UserId_To_Exam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607170437133_Add_Item_Number_To_ExamItem.cs" />
+    <Compile Include="Migrations\201607170437133_Add_Item_Number_To_ExamItem.Designer.cs">
+      <DependentUpon>201607170437133_Add_Item_Number_To_ExamItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607170716306_Add_IsCorrectAnswer_Flag_To_Option.cs" />
+    <Compile Include="Migrations\201607170716306_Add_IsCorrectAnswer_Flag_To_Option.Designer.cs">
+      <DependentUpon>201607170716306_Add_IsCorrectAnswer_Flag_To_Option.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607170745528_Add_Description_To_Options.cs" />
+    <Compile Include="Migrations\201607170745528_Add_Description_To_Options.Designer.cs">
+      <DependentUpon>201607170745528_Add_Description_To_Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DateRangeAttribute.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\ExamItem.cs" />
+    <Compile Include="Repositories\ExamMakerDbContext.cs" />
+    <Compile Include="ExamMakerResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExamMakerResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExamType.cs" />
+    <Compile Include="Repositories\IAppDataSource.cs" />
+    <Compile Include="Models\ItemType.cs" />
+    <Compile Include="Migrations\201607151342493_Initial_ExamMaker_DB.cs" />
+    <Compile Include="Migrations\201607151342493_Initial_ExamMaker_DB.Designer.cs">
+      <DependentUpon>201607151342493_Initial_ExamMaker_DB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Option.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\AppRepository.cs" />
+    <Compile Include="Repositories\SqlRepository.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Repositories\XmlRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ExamMakerResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExamMakerResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607151342493_Initial_ExamMaker_DB.resx">
+      <DependentUpon>201607151342493_Initial_ExamMaker_DB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607170330469_Add_Exams_To_User.resx">
+      <DependentUpon>201607170330469_Add_Exams_To_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607170350371_Add_UserId_To_Exam.resx">
+      <DependentUpon>201607170350371_Add_UserId_To_Exam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607170437133_Add_Item_Number_To_ExamItem.resx">
+      <DependentUpon>201607170437133_Add_Item_Number_To_ExamItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607170716306_Add_IsCorrectAnswer_Flag_To_Option.resx">
+      <DependentUpon>201607170716306_Add_IsCorrectAnswer_Flag_To_Option.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607170745528_Add_Description_To_Options.resx">
+      <DependentUpon>201607170745528_Add_Description_To_Options.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
