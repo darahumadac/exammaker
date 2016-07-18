@@ -108,26 +108,6 @@ namespace ExamMaker.Views
             itemNum.Value = _selectedExamItem.ItemNumber;
             itemTypeDd.SelectedIndex = (int)_selectedExamItem.ItemType - 1;
             question.Text = _selectedExamItem.Question;
-
-            //TODO: Format / Set the Answer per ExamItem on Save of
-            //TODO: the ExamItem. Meanwhile, set the answer to Answer field
-
-            //List<Option> correctAnswers = new List<Option>();
-            //if (_selectedExamItem.Options.Count > 0)
-            //{
-            //    _correctAnswerIdentifiers = new List<string>();
-            //    correctAnswers = _selectedExamItem.Options
-            //        .Where(o => o.IsCorrectAnswer).ToList();
-
-            //    correctAnswers.ForEach(addOptionToCorrectAnswerIdentifiers);
-
-            //    answer.Text = String.Join(",", _correctAnswerIdentifiers);
-            //}
-            //else
-            //{
-            //    answer.Text = _selectedExamItem.Answer;
-            //}
-
             answer.Text = _selectedExamItem.Answer;
 
             choicesList.Items.Clear();
@@ -142,12 +122,6 @@ namespace ExamMaker.Views
                     isCorrectAnswer);
             }
         }
-
-        private void addOptionToCorrectAnswerIdentifiers(Option option)
-        {
-            _correctAnswerIdentifiers.Add(option.OptionName);
-        }
-
 
         private void examItemsGrid_rowAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
