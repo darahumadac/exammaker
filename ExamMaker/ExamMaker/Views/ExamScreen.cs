@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Windows.Forms;
+using ExamMaker.BusinessObjects;
 using ExamMaker.Models.Models;
 using ExamMaker.Presenters.Presenters;
 
@@ -13,6 +17,7 @@ namespace ExamMaker.Views
         private ExamPresenter _examPresenter;
         private IExamManager _examManager;
         private readonly Exam _examRecord;
+        private ResourceManager _resourceManager;
 
 
         private List<ExamItem> _examItems;
@@ -37,6 +42,7 @@ namespace ExamMaker.Views
             _hasExamItems = _examItems.Count > 0;
             _hasSelectedRow = false;
 
+            _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
             _examPresenter = new ExamPresenter(this);
             _examManager = new ExamManager(examRecord);
         }
@@ -130,7 +136,6 @@ namespace ExamMaker.Views
             string[] correctAnswers = _selectedExamItem.Answer.Split(',');
             foreach (var option in _selectedExamItem.Options)
             {
-                //isCorrectAnswer = correctAnswers.Contains(option);
                 isCorrectAnswer = correctAnswers.FirstOrDefault(a => a.Equals(option.OptionName)) != null;
                 choicesList.Items.Add(String.Format("{0}. {1}", 
                     option.OptionName, option.Description), 
@@ -162,6 +167,16 @@ namespace ExamMaker.Views
         private void exportAnsKeyBtn_Click(object sender, EventArgs e)
         {
             _examManager.ExportAnswerKey();
+
+            string saveFolder = ConfigurationManager.AppSettings["answerKeySaveFolder"];
+            if (string.IsNullOrEmpty(saveFolder))
+            {
+                saveFolder = "My Documents";
+            }
+
+            MessageBox.Show(String.Format(_resourceManager.GetString("exportAnsKeySuccessMsg"), saveFolder,
+                String.Format(ConfigurationManager.AppSettings["answerKeyDefaultFilename"], _examRecord.ExamId)),
+                _resourceManager.GetString("exportAnsKeySuccessCaption"), MessageBoxButtons.OK);
         }
 
     }

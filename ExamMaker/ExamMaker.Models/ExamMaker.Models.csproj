@@ -71,6 +71,7 @@
     <Compile Include="Models\DateRangeAttribute.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\ExamItem.cs" />
+    <Compile Include="Models\Exporter.cs" />
     <Compile Include="Models\IExamManager.cs" />
     <Compile Include="Repositories\ExamMakerDbContext.cs" />
     <Compile Include="ExamMakerResource.Designer.cs">
