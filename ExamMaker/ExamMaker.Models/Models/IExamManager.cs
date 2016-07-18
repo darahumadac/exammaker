@@ -9,5 +9,6 @@ namespace ExamMaker.Models.Models
     public interface IExamManager
     {
         void ExportAnswerKey();
+        void ExportExam();
     }
 }

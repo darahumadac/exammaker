@@ -63,9 +63,9 @@ namespace ExamMaker.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Answer Key Successfully Exported.
         /// </summary>
-        internal static string exportAnsKeySuccessCaption {
+        internal static string exportAnswerKeySuccessCaption {
             get {
-                return ResourceManager.GetString("exportAnsKeySuccessCaption", resourceCulture);
+                return ResourceManager.GetString("exportAnswerKeySuccessCaption", resourceCulture);
             }
         }
         
@@ -73,9 +73,28 @@ namespace ExamMaker.Resources {
         ///   Looks up a localized string similar to Answer key was exported to {0} folder 
         ///Filename: {1}.
         /// </summary>
-        internal static string exportAnsKeySuccessMsg {
+        internal static string exportAnswerKeySuccessMsg {
             get {
-                return ResourceManager.GetString("exportAnsKeySuccessMsg", resourceCulture);
+                return ResourceManager.GetString("exportAnswerKeySuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exam Successfully Exported.
+        /// </summary>
+        internal static string exportExamSuccessCaption {
+            get {
+                return ResourceManager.GetString("exportExamSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exam was exported to {0} folder 
+        ///Filename: {1}.
+        /// </summary>
+        internal static string exportExamSuccessMsg {
+            get {
+                return ResourceManager.GetString("exportExamSuccessMsg", resourceCulture);
             }
         }
     }

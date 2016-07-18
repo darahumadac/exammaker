@@ -117,11 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="exportAnsKeySuccessCaption" xml:space="preserve">
+  <data name="exportAnswerKeySuccessCaption" xml:space="preserve">
     <value>Answer Key Successfully Exported</value>
   </data>
-  <data name="exportAnsKeySuccessMsg" xml:space="preserve">
+  <data name="exportAnswerKeySuccessMsg" xml:space="preserve">
     <value>Answer key was exported to {0} folder 
+Filename: {1}</value>
+  </data>
+  <data name="exportExamSuccessCaption" xml:space="preserve">
+    <value>Exam Successfully Exported</value>
+  </data>
+  <data name="exportExamSuccessMsg" xml:space="preserve">
+    <value>Exam was exported to {0} folder 
 Filename: {1}</value>
   </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -102,7 +103,6 @@ namespace ExamMaker.Views
 
         private void loadSelectedExamItemInfo()
         {
-
             _selectedExamItem = (ExamItem)examItemsGrid.SelectedRows[0].DataBoundItem;
 
             itemNum.Value = _selectedExamItem.ItemNumber;
@@ -135,22 +135,36 @@ namespace ExamMaker.Views
             {
                 loadSelectedExamItemInfo();
             }
-
         }
 
         private void exportAnsKeyBtn_Click(object sender, EventArgs e)
         {
             _examManager.ExportAnswerKey();
+            showSuccessMessageBox("AnswerKey");
+        }
 
-            string saveFolder = ConfigurationManager.AppSettings["answerKeySaveFolder"];
+        private void exportExamBtn_Click(object sender, EventArgs e)
+        {
+            _examManager.ExportExam();
+            showSuccessMessageBox("Exam");
+        }
+
+        private void showSuccessMessageBox(string documentType)
+        {
+            string saveFolderSettingKey = String.Format("{0}SaveFolder", documentType.ToLower());
+            string saveFolder = ConfigurationManager.AppSettings[saveFolderSettingKey];
             if (string.IsNullOrEmpty(saveFolder))
             {
                 saveFolder = "My Documents";
             }
-
-            MessageBox.Show(String.Format(_resourceManager.GetString("exportAnsKeySuccessMsg"), saveFolder,
-                String.Format(ConfigurationManager.AppSettings["answerKeyDefaultFilename"], _examRecord.ExamId)),
-                _resourceManager.GetString("exportAnsKeySuccessCaption"), MessageBoxButtons.OK);
+            string successMsgKey = String.Format("export{0}SuccessMsg", documentType);
+            string successCaptionKey = String.Format("export{0}SuccessCaption", documentType);
+            string saveFilenameKey = String.Format("{0}DefaultFilename", documentType.ToLower());
+            string saveFilename = String.Format(ConfigurationManager.AppSettings[saveFilenameKey], _examRecord.ExamId);
+            
+            string message = String.Format(_resourceManager.GetString(successMsgKey),
+                saveFolder, saveFilename);
+            MessageBox.Show(message, _resourceManager.GetString(successCaptionKey), MessageBoxButtons.OK);
         }
 
     }

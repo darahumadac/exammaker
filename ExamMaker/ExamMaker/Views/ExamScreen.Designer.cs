@@ -54,6 +54,8 @@
             this.examNameError = new System.Windows.Forms.ErrorProvider(this.components);
             this.examPasswordError = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.faqImg = new System.Windows.Forms.PictureBox();
+            this.itemNum = new System.Windows.Forms.NumericUpDown();
             this.itemTypeDd = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -63,22 +65,20 @@
             this.answer = new System.Windows.Forms.TextBox();
             this.examQuestionDetails = new System.Windows.Forms.TabControl();
             this.questionTab = new System.Windows.Forms.TabPage();
-            this.choicesTab = new System.Windows.Forms.TabPage();
-            this.itemNum = new System.Windows.Forms.NumericUpDown();
             this.question = new System.Windows.Forms.TextBox();
+            this.choicesTab = new System.Windows.Forms.TabPage();
             this.choicesList = new System.Windows.Forms.CheckedListBox();
             this.saveItemTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.faqImg = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.examItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examNameError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.faqImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemNum)).BeginInit();
             this.answerBox.SuspendLayout();
             this.examQuestionDetails.SuspendLayout();
             this.questionTab.SuspendLayout();
             this.choicesTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.itemNum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.faqImg)).BeginInit();
             this.SuspendLayout();
             // 
             // examItemsGrid
@@ -228,12 +228,13 @@
             // 
             // exportExamBtn
             // 
-            this.exportExamBtn.Location = new System.Drawing.Point(305, 78);
+            this.exportExamBtn.Location = new System.Drawing.Point(330, 78);
             this.exportExamBtn.Name = "exportExamBtn";
-            this.exportExamBtn.Size = new System.Drawing.Size(107, 22);
+            this.exportExamBtn.Size = new System.Drawing.Size(82, 22);
             this.exportExamBtn.TabIndex = 17;
-            this.exportExamBtn.Text = "Export to Word";
+            this.exportExamBtn.Text = "Export Exam";
             this.exportExamBtn.UseVisualStyleBackColor = true;
+            this.exportExamBtn.Click += new System.EventHandler(this.exportExamBtn_Click);
             // 
             // exportAnsKeyBtn
             // 
@@ -315,6 +316,21 @@
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exam Item";
+            // 
+            // faqImg
+            // 
+            this.faqImg.Location = new System.Drawing.Point(193, 305);
+            this.faqImg.Name = "faqImg";
+            this.faqImg.Size = new System.Drawing.Size(33, 33);
+            this.faqImg.TabIndex = 43;
+            this.faqImg.TabStop = false;
+            // 
+            // itemNum
+            // 
+            this.itemNum.Location = new System.Drawing.Point(62, 28);
+            this.itemNum.Name = "itemNum";
+            this.itemNum.Size = new System.Drawing.Size(63, 20);
+            this.itemNum.TabIndex = 41;
             // 
             // itemTypeDd
             // 
@@ -405,6 +421,14 @@
             this.questionTab.Text = "Question";
             this.questionTab.UseVisualStyleBackColor = true;
             // 
+            // question
+            // 
+            this.question.Location = new System.Drawing.Point(8, 6);
+            this.question.Multiline = true;
+            this.question.Name = "question";
+            this.question.Size = new System.Drawing.Size(279, 108);
+            this.question.TabIndex = 1;
+            // 
             // choicesTab
             // 
             this.choicesTab.Controls.Add(this.choicesList);
@@ -415,21 +439,6 @@
             this.choicesTab.TabIndex = 1;
             this.choicesTab.Text = "Choices";
             this.choicesTab.UseVisualStyleBackColor = true;
-            // 
-            // itemNum
-            // 
-            this.itemNum.Location = new System.Drawing.Point(62, 28);
-            this.itemNum.Name = "itemNum";
-            this.itemNum.Size = new System.Drawing.Size(63, 20);
-            this.itemNum.TabIndex = 41;
-            // 
-            // question
-            // 
-            this.question.Location = new System.Drawing.Point(8, 6);
-            this.question.Multiline = true;
-            this.question.Name = "question";
-            this.question.Size = new System.Drawing.Size(279, 108);
-            this.question.TabIndex = 1;
             // 
             // choicesList
             // 
@@ -442,14 +451,6 @@
             // saveItemTooltip
             // 
             this.saveItemTooltip.IsBalloon = true;
-            // 
-            // faqImg
-            // 
-            this.faqImg.Location = new System.Drawing.Point(193, 305);
-            this.faqImg.Name = "faqImg";
-            this.faqImg.Size = new System.Drawing.Size(33, 33);
-            this.faqImg.TabIndex = 43;
-            this.faqImg.TabStop = false;
             // 
             // ExamScreen
             // 
@@ -487,14 +488,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.faqImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemNum)).EndInit();
             this.answerBox.ResumeLayout(false);
             this.answerBox.PerformLayout();
             this.examQuestionDetails.ResumeLayout(false);
             this.questionTab.ResumeLayout(false);
             this.questionTab.PerformLayout();
             this.choicesTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.itemNum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.faqImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

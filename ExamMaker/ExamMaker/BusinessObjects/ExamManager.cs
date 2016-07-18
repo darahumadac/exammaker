@@ -26,17 +26,27 @@ namespace ExamMaker.BusinessObjects
 
         public void ExportAnswerKey()
         {
-            string answerKeyFilename = ConfigurationManager.AppSettings["answerKeyDefaultFilename"];
-            string answerKeyFolder = ConfigurationManager.AppSettings["answerKeySaveFolder"];
+            string answerKeyFilePath = getExportFilePath("answerkey");
+            _exporter.ExportAnswerKey(answerKeyFilePath);
+        }
 
-            if (string.IsNullOrEmpty(answerKeyFolder))
+        private string getExportFilePath(string documentType)
+        {
+            string docTypeFilename = ConfigurationManager.AppSettings[String.Format("{0}DefaultFilename", documentType)];
+            string docTypeFolder = ConfigurationManager.AppSettings[String.Format("{0}SaveFolder", documentType)];
+
+            if (string.IsNullOrEmpty(docTypeFolder))
             {
-                answerKeyFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                docTypeFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             }
 
-            string answerKeyFilePath = Path.Combine(answerKeyFolder, String.Format(answerKeyFilename, _exam.ExamId)); 
+            return Path.Combine(docTypeFolder, String.Format(docTypeFilename, _exam.ExamId));
+        }
 
-            _exporter.ExportAnswerKey(answerKeyFilePath);
+        public void ExportExam()
+        {
+            string examFilePath = getExportFilePath("exam");
+            _exporter.ExportExam(examFilePath);
         }
     }
 }
