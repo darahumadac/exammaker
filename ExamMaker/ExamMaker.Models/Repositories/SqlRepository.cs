@@ -45,5 +45,16 @@ namespace ExamMaker.Models.Repositories
         {
             _dbContext.SaveChanges();
         }
+
+        public void Revert()
+        {
+            var modifiedEntries = _dbContext.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified).ToList();
+            
+            foreach (var modifiedEntry in modifiedEntries)
+            {
+                modifiedEntry.CurrentValues.SetValues(modifiedEntry.OriginalValues);
+                modifiedEntry.State = EntityState.Unchanged;
+            }
+        }
     }
 }

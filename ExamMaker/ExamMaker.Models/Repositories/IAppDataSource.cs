@@ -10,5 +10,6 @@ namespace ExamMaker.Models.Repositories
         List<T> GetAll<T>() where T : class;
         T GetById<T>(object id) where T : class;
         void Save();
+        void Revert();
     }
 }

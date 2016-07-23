@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using ExamMaker.Models.Models;
+using ExamMaker.Models.Repositories;
 
 namespace ExamMaker.BusinessObjects
 {
@@ -14,7 +15,7 @@ namespace ExamMaker.BusinessObjects
         public ExamManager(Exam exam)
         {
             _exam = exam;
-            
+
             Type[] parameterType = { typeof(Exam) };
             Type exporterType = Type.GetType(ConfigurationManager.AppSettings["documentExporterInstance"]) ??
                                 typeof (MsWordExporter);
@@ -22,6 +23,11 @@ namespace ExamMaker.BusinessObjects
             ConstructorInfo constructor = exporterType.GetConstructor(parameterType);
             object[] contructorArgs = { exam };
             _exporter = (Exporter)constructor.Invoke(contructorArgs);
+        }
+
+        public void SaveExam(Exam exam)
+        {
+            throw new NotImplementedException();
         }
 
         public void ExportAnswerKey()

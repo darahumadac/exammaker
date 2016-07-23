@@ -42,5 +42,10 @@ namespace ExamMaker.Models.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void Revert()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

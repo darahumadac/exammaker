@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201607170745528_Add_Description_To_Options.Designer.cs">
       <DependentUpon>201607170745528_Add_Description_To_Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607230916095_AddedExamIdInExamItem.cs" />
+    <Compile Include="Migrations\201607230916095_AddedExamIdInExamItem.Designer.cs">
+      <DependentUpon>201607230916095_AddedExamIdInExamItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DateRangeAttribute.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\ExamItem.cs" />
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607170745528_Add_Description_To_Options.resx">
       <DependentUpon>201607170745528_Add_Description_To_Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607230916095_AddedExamIdInExamItem.resx">
+      <DependentUpon>201607230916095_AddedExamIdInExamItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

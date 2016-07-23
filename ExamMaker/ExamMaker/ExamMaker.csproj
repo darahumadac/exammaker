@@ -76,17 +76,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExamScreenResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExamListScreen.cs">
+    <Compile Include="Views\Basic\ExamListScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ExamListScreen.Designer.cs">
+    <Compile Include="Views\Basic\ExamListScreen.Designer.cs">
       <DependentUpon>ExamListScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExamScreen.cs">
+    <Compile Include="Views\Basic\ExamScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ExamScreen.Designer.cs">
+    <Compile Include="Views\Basic\ExamScreen.Designer.cs">
       <DependentUpon>ExamScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Premium\ExamScreenWithQuestionBank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Premium\ExamScreenWithQuestionBank.Designer.cs">
+      <DependentUpon>ExamScreenWithQuestionBank.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainMenuScreen.cs">
       <SubType>Form</SubType>
@@ -96,6 +102,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Premium\QuestionBankScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Premium\QuestionBankScreen.Designer.cs">
+      <DependentUpon>QuestionBankScreen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Resources\ExamListResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExamListResource.Designer.cs</LastGenOutput>
@@ -104,11 +116,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExamScreenResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ExamListScreen.resx">
+    <EmbeddedResource Include="Views\Basic\ExamListScreen.resx">
       <DependentUpon>ExamListScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ExamScreen.resx">
+    <EmbeddedResource Include="Views\Basic\ExamScreen.resx">
       <DependentUpon>ExamScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Premium\ExamScreenWithQuestionBank.resx">
+      <DependentUpon>ExamScreenWithQuestionBank.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainMenuScreen.resx">
       <DependentUpon>MainMenuScreen.cs</DependentUpon>
@@ -122,6 +137,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Premium\QuestionBankScreen.resx">
+      <DependentUpon>QuestionBankScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

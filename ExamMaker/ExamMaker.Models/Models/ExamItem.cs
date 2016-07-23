@@ -10,6 +10,8 @@ namespace ExamMaker.Models.Models
         [Browsable(false)]
         public int ExamItemId { get; set; }
 
+        public int ExamId { get; set; }
+
         [DisplayName("Item No.")]
         public int ItemNumber { get; set; }
 

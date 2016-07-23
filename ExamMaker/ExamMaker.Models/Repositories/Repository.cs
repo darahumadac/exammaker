@@ -26,6 +26,16 @@ namespace ExamMaker.Models.Repositories
             _dataSource.Delete(entity);
         }
 
+        public void Save()
+        {
+            _dataSource.Save();
+        }
+
+        public void Revert()
+        {
+            _dataSource.Revert();
+        }
+
         public List<T> GetAll()
         {
             return _dataSource.GetAll<T>();
@@ -35,6 +45,8 @@ namespace ExamMaker.Models.Repositories
         {
             return _dataSource.GetById<T>(id);
         }
+
+        
 
     }
 

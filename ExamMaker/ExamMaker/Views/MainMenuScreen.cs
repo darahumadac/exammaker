@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ExamMaker.Models.Models;
 using ExamMaker.Models.Repositories;
 using ExamMaker.Presenters.Views;
+using ExamMaker.Views.Basic;
 
 namespace ExamMaker.Views
 {
@@ -33,7 +34,8 @@ namespace ExamMaker.Views
 
         private void viewOrEditExamBtn_Click(object sender, EventArgs e)
         {
-            IExamListView examListScreen = new ExamListScreen(_appRepository.ExamRepository);
+            IExamListView examListScreen = new ExamListScreen(_appRepository.ExamRepository, 
+                _appRepository.ExamItemRepository);
             examListScreen.Show();
         }
     }

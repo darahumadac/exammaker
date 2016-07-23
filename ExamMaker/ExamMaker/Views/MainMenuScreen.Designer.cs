@@ -30,6 +30,8 @@
         {
             this.createNewExamBtn = new System.Windows.Forms.Button();
             this.viewOrEditExamBtn = new System.Windows.Forms.Button();
+            this.questionBank = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // createNewExamBtn
@@ -52,11 +54,31 @@
             this.viewOrEditExamBtn.UseVisualStyleBackColor = true;
             this.viewOrEditExamBtn.Click += new System.EventHandler(this.viewOrEditExamBtn_Click);
             // 
+            // questionBank
+            // 
+            this.questionBank.Location = new System.Drawing.Point(12, 109);
+            this.questionBank.Name = "questionBank";
+            this.questionBank.Size = new System.Drawing.Size(151, 34);
+            this.questionBank.TabIndex = 2;
+            this.questionBank.Text = "Question Bank";
+            this.questionBank.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 149);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(151, 34);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "View / Edit Questions";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // MainMenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 364);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.questionBank);
             this.Controls.Add(this.viewOrEditExamBtn);
             this.Controls.Add(this.createNewExamBtn);
             this.Name = "MainMenuScreen";
@@ -70,6 +92,8 @@
 
         private System.Windows.Forms.Button createNewExamBtn;
         private System.Windows.Forms.Button viewOrEditExamBtn;
+        private System.Windows.Forms.Button questionBank;
+        private System.Windows.Forms.Button button1;
     }
 }
 
