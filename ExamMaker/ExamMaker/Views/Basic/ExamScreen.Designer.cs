@@ -52,12 +52,12 @@
             this.examNameError = new System.Windows.Forms.ErrorProvider(this.components);
             this.examPasswordError = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.editItemBtn = new System.Windows.Forms.Button();
+            this.itemTypeLbl = new System.Windows.Forms.Label();
             this.faqImg = new System.Windows.Forms.PictureBox();
             this.itemNum = new System.Windows.Forms.NumericUpDown();
             this.itemTypeDd = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.resetBtn = new System.Windows.Forms.Button();
+            this.itemNumLbl = new System.Windows.Forms.Label();
             this.saveItem = new System.Windows.Forms.Button();
             this.answerBox = new System.Windows.Forms.GroupBox();
             this.answer = new System.Windows.Forms.TextBox();
@@ -65,10 +65,14 @@
             this.questionTab = new System.Windows.Forms.TabPage();
             this.question = new System.Windows.Forms.TextBox();
             this.choicesTab = new System.Windows.Forms.TabPage();
+            this.addChoiceBtn = new System.Windows.Forms.Button();
             this.choicesList = new System.Windows.Forms.CheckedListBox();
             this.previewTab = new System.Windows.Forms.TabPage();
+            this.resetBtn = new System.Windows.Forms.Button();
             this.saveItemTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.label8 = new System.Windows.Forms.Label();
+            this.saveOrder = new System.Windows.Forms.Button();
+            this.discardChanges = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.examItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examNameError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).BeginInit();
@@ -96,6 +100,7 @@
             this.examItemsGrid.Size = new System.Drawing.Size(400, 308);
             this.examItemsGrid.TabIndex = 0;
             this.examItemsGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.examItemsGrid_rowAdded);
+            this.examItemsGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.examItemsGrid_rowValidating);
             this.examItemsGrid.SelectionChanged += new System.EventHandler(this.examItemsGrid_selectionChanged);
             // 
             // examQuestionsListLbl
@@ -162,7 +167,7 @@
             // 
             // addExamSectionBtn
             // 
-            this.addExamSectionBtn.Location = new System.Drawing.Point(330, 106);
+            this.addExamSectionBtn.Location = new System.Drawing.Point(242, 107);
             this.addExamSectionBtn.Name = "addExamSectionBtn";
             this.addExamSectionBtn.Size = new System.Drawing.Size(82, 23);
             this.addExamSectionBtn.TabIndex = 11;
@@ -284,12 +289,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.discardChanges);
+            this.groupBox1.Controls.Add(this.saveOrder);
+            this.groupBox1.Controls.Add(this.itemTypeLbl);
             this.groupBox1.Controls.Add(this.faqImg);
             this.groupBox1.Controls.Add(this.itemNum);
             this.groupBox1.Controls.Add(this.itemTypeDd);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.resetBtn);
+            this.groupBox1.Controls.Add(this.itemNumLbl);
             this.groupBox1.Controls.Add(this.saveItem);
             this.groupBox1.Controls.Add(this.answerBox);
             this.groupBox1.Controls.Add(this.examQuestionDetails);
@@ -300,14 +306,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exam Item";
             // 
-            // label9
+            // editItemBtn
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 57);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(54, 13);
-            this.label9.TabIndex = 44;
-            this.label9.Text = "Item Type";
+            this.editItemBtn.Location = new System.Drawing.Point(330, 106);
+            this.editItemBtn.Name = "editItemBtn";
+            this.editItemBtn.Size = new System.Drawing.Size(82, 24);
+            this.editItemBtn.TabIndex = 45;
+            this.editItemBtn.Text = "Edit Item";
+            this.editItemBtn.UseVisualStyleBackColor = true;
+            this.editItemBtn.Click += new System.EventHandler(this.editItemBtn_Click);
+            // 
+            // itemTypeLbl
+            // 
+            this.itemTypeLbl.AutoSize = true;
+            this.itemTypeLbl.Enabled = false;
+            this.itemTypeLbl.Location = new System.Drawing.Point(3, 57);
+            this.itemTypeLbl.Name = "itemTypeLbl";
+            this.itemTypeLbl.Size = new System.Drawing.Size(54, 13);
+            this.itemTypeLbl.TabIndex = 44;
+            this.itemTypeLbl.Text = "Item Type";
             // 
             // faqImg
             // 
@@ -337,6 +354,7 @@
             // 
             // itemTypeDd
             // 
+            this.itemTypeDd.Enabled = false;
             this.itemTypeDd.FormattingEnabled = true;
             this.itemTypeDd.Items.AddRange(new object[] {
             "Fill In the Blanks",
@@ -347,28 +365,20 @@
             this.itemTypeDd.Name = "itemTypeDd";
             this.itemTypeDd.Size = new System.Drawing.Size(120, 21);
             this.itemTypeDd.TabIndex = 40;
+            this.itemTypeDd.SelectedIndexChanged += new System.EventHandler(this.itemTypeDd_selectedIndexChanged);
             // 
-            // label4
+            // itemNumLbl
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
-            this.label4.TabIndex = 37;
-            this.label4.Text = "Item No.";
-            // 
-            // resetBtn
-            // 
-            this.resetBtn.Location = new System.Drawing.Point(6, 310);
-            this.resetBtn.Name = "resetBtn";
-            this.resetBtn.Size = new System.Drawing.Size(57, 24);
-            this.resetBtn.TabIndex = 36;
-            this.resetBtn.Text = "Reset";
-            this.resetBtn.UseVisualStyleBackColor = true;
-            this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
+            this.itemNumLbl.AutoSize = true;
+            this.itemNumLbl.Location = new System.Drawing.Point(10, 32);
+            this.itemNumLbl.Name = "itemNumLbl";
+            this.itemNumLbl.Size = new System.Drawing.Size(47, 13);
+            this.itemNumLbl.TabIndex = 37;
+            this.itemNumLbl.Text = "Item No.";
             // 
             // saveItem
             // 
+            this.saveItem.CausesValidation = false;
             this.saveItem.Enabled = false;
             this.saveItem.Location = new System.Drawing.Point(232, 310);
             this.saveItem.Name = "saveItem";
@@ -381,6 +391,7 @@
             // answerBox
             // 
             this.answerBox.Controls.Add(this.answer);
+            this.answerBox.Enabled = false;
             this.answerBox.Location = new System.Drawing.Point(6, 236);
             this.answerBox.Name = "answerBox";
             this.answerBox.Size = new System.Drawing.Size(301, 68);
@@ -420,6 +431,7 @@
             // 
             // question
             // 
+            this.question.Enabled = false;
             this.question.Location = new System.Drawing.Point(8, 6);
             this.question.Multiline = true;
             this.question.Name = "question";
@@ -428,6 +440,7 @@
             // 
             // choicesTab
             // 
+            this.choicesTab.Controls.Add(this.addChoiceBtn);
             this.choicesTab.Controls.Add(this.choicesList);
             this.choicesTab.Location = new System.Drawing.Point(4, 22);
             this.choicesTab.Name = "choicesTab";
@@ -437,13 +450,25 @@
             this.choicesTab.Text = "Choices";
             this.choicesTab.UseVisualStyleBackColor = true;
             // 
+            // addChoiceBtn
+            // 
+            this.addChoiceBtn.Enabled = false;
+            this.addChoiceBtn.Location = new System.Drawing.Point(212, 94);
+            this.addChoiceBtn.Name = "addChoiceBtn";
+            this.addChoiceBtn.Size = new System.Drawing.Size(75, 23);
+            this.addChoiceBtn.TabIndex = 1;
+            this.addChoiceBtn.Text = "Add Choices";
+            this.addChoiceBtn.UseVisualStyleBackColor = true;
+            // 
             // choicesList
             // 
+            this.choicesList.Enabled = false;
             this.choicesList.FormattingEnabled = true;
             this.choicesList.Location = new System.Drawing.Point(7, 12);
             this.choicesList.Name = "choicesList";
-            this.choicesList.Size = new System.Drawing.Size(280, 94);
+            this.choicesList.Size = new System.Drawing.Size(280, 79);
             this.choicesList.TabIndex = 0;
+            this.choicesList.SelectedIndexChanged += new System.EventHandler(this.choicesList_selectedIndexChanged);
             // 
             // previewTab
             // 
@@ -453,6 +478,16 @@
             this.previewTab.TabIndex = 2;
             this.previewTab.Text = "Question Preview";
             this.previewTab.UseVisualStyleBackColor = true;
+            // 
+            // resetBtn
+            // 
+            this.resetBtn.Location = new System.Drawing.Point(12, 455);
+            this.resetBtn.Name = "resetBtn";
+            this.resetBtn.Size = new System.Drawing.Size(98, 24);
+            this.resetBtn.TabIndex = 36;
+            this.resetBtn.Text = "Reset Order";
+            this.resetBtn.UseVisualStyleBackColor = true;
+            this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
             // 
             // saveItemTooltip
             // 
@@ -467,16 +502,41 @@
             this.label8.TabIndex = 27;
             this.label8.Text = "Exam Name";
             // 
+            // saveOrder
+            // 
+            this.saveOrder.Location = new System.Drawing.Point(228, 24);
+            this.saveOrder.Name = "saveOrder";
+            this.saveOrder.Size = new System.Drawing.Size(75, 24);
+            this.saveOrder.TabIndex = 46;
+            this.saveOrder.Text = "Save Order";
+            this.saveOrder.UseVisualStyleBackColor = true;
+            this.saveOrder.Click += new System.EventHandler(this.saveOrder_Click);
+            // 
+            // discardChanges
+            // 
+            this.discardChanges.CausesValidation = false;
+            this.discardChanges.Enabled = false;
+            this.discardChanges.Location = new System.Drawing.Point(13, 310);
+            this.discardChanges.Name = "discardChanges";
+            this.discardChanges.Size = new System.Drawing.Size(96, 24);
+            this.discardChanges.TabIndex = 47;
+            this.discardChanges.Text = "Discard Changes";
+            this.discardChanges.UseVisualStyleBackColor = true;
+            this.discardChanges.Click += new System.EventHandler(this.discardChanges_Click);
+            // 
             // ExamScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(765, 509);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.editItemBtn);
             this.Controls.Add(this.examPreparedBy);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.saveExamBtn);
+            this.Controls.Add(this.resetBtn);
             this.Controls.Add(this.printExamBtn);
             this.Controls.Add(this.previewExamBtn);
             this.Controls.Add(this.exportAnsKeyBtn);
@@ -543,7 +603,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox itemTypeDd;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label itemNumLbl;
         private System.Windows.Forms.Button resetBtn;
         private System.Windows.Forms.Button saveItem;
         private System.Windows.Forms.GroupBox answerBox;
@@ -558,6 +618,10 @@
         private System.Windows.Forms.PictureBox faqImg;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage previewTab;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label itemTypeLbl;
+        private System.Windows.Forms.Button addChoiceBtn;
+        private System.Windows.Forms.Button editItemBtn;
+        private System.Windows.Forms.Button saveOrder;
+        private System.Windows.Forms.Button discardChanges;
     }
 }

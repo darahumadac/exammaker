@@ -131,4 +131,7 @@ Filename: {1}</value>
     <value>Exam was exported to {0} folder 
 Filename: {1}</value>
   </data>
+  <data name="saveExamItemConfirm" xml:space="preserve">
+    <value>Would you like to save your changes for Exam Item #{0}?</value>
+  </data>
 </root>

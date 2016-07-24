@@ -24,11 +24,11 @@ namespace ExamMaker.Views.Basic
 
         private List<ExamItem> _examItems;
         private ExamItem _selectedExamItem;
-        private List<string> _correctAnswerIdentifiers;
-        private List<string> _answers; 
         private bool _hasExamItems;
+        private bool _shouldValidateRow;
         
         private bool _hasSelectedRow;
+        private bool _isCurrentRecordSaved;
 
         public ExamScreen()
         {
@@ -46,6 +46,8 @@ namespace ExamMaker.Views.Basic
             _examItems = _examRecord.ExamItems.OrderBy(e => e.ItemNumber).ToList();
             _hasExamItems = _examItems.Count > 0;
             _hasSelectedRow = false;
+            _shouldValidateRow = false;
+            _isCurrentRecordSaved = true;
 
             _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
             _examPresenter = new ExamPresenter(this);
@@ -59,13 +61,14 @@ namespace ExamMaker.Views.Basic
         {
             itemNum.Minimum = 0;
             itemNum.Maximum = 0;
+
+            enableResetBtn(false);
         }
 
         public void InitializeUI()
         {
             if (_examRecord != null)
             {
-                saveItem.Enabled = true;
                 totalQuestionsLbl.Text = String.Format("{0} items", _examItems.Count);
             }
             else
@@ -111,7 +114,7 @@ namespace ExamMaker.Views.Basic
 
             if (_hasExamItems)
             {
-                examItemsGrid.DataSource = _examItems;
+                SortExamItems();
                 selectExamItem(0);
             }
         }
@@ -135,20 +138,33 @@ namespace ExamMaker.Views.Basic
                 question.Text = _selectedExamItem.Question;
                 answer.Text = _selectedExamItem.Answer;
 
-                choicesList.Items.Clear();
-
-                bool isCorrectAnswer;
-
-                string[] correctAnswers = _selectedExamItem.Answer.Split(',');
-                foreach (var option in _selectedExamItem.Options)
-                {
-                    isCorrectAnswer = correctAnswers.FirstOrDefault(a => a.Equals(option.OptionName)) != null;
-                    choicesList.Items.Add(String.Format("{0}. {1}",
-                        option.OptionName, option.Description),
-                        isCorrectAnswer);
-                }
+                showOrHideChoicesTabForExamItem((int)_selectedExamItem.ItemType);
             }
-            
+        }
+
+        private void showOrHideChoicesTabForExamItem(int examItemTypeIndex)
+        {
+            choicesList.Items.Clear();
+            examQuestionDetails.TabPages.Remove(choicesTab);
+
+            if (examItemTypeIndex == (int)ItemType.MultipleChoice)
+            {
+                examQuestionDetails.TabPages.Add(choicesTab);
+                displayOptionsInChoicesTab();
+            }
+        }
+
+        private void displayOptionsInChoicesTab()
+        {
+            bool isCorrectAnswer;
+            string[] correctAnswers = _selectedExamItem.Answer.Split(',');
+            foreach (var option in _selectedExamItem.Options)
+            {
+                isCorrectAnswer = correctAnswers.FirstOrDefault(a => a.Equals(option.OptionName)) != null;
+                choicesList.Items.Add(String.Format("{0}. {1}",
+                    option.OptionName, option.Description),
+                    isCorrectAnswer);
+            }
         }
 
         private void examItemsGrid_rowAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -193,6 +209,7 @@ namespace ExamMaker.Views.Basic
             
             if (_hasSelectedRow && _selectedExamItem.ItemNumber != newItemNumber)
             {
+
                 ExamItem oldExamItemInItemNumber = _examItems.First(i => i.ItemNumber == newItemNumber);
                 oldExamItemInItemNumber.ItemNumber = _selectedExamItem.ItemNumber;
                 
@@ -201,6 +218,7 @@ namespace ExamMaker.Views.Basic
                 _examItemsRepository.Update(_selectedExamItem);
                 _examItemsRepository.Update(oldExamItemInItemNumber);
 
+                enableResetBtn(true);
                 SortExamItems();
                 selectCurrentExamItem();
             }
@@ -219,10 +237,18 @@ namespace ExamMaker.Views.Basic
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
+            _isCurrentRecordSaved = true;
             _examItemsRepository.Revert();
             SortExamItems();
 
             selectCurrentExamItem();
+            enableResetBtn(false);
+        }
+
+        private void enableResetBtn(bool willEnableBtn)
+        {
+            saveOrder.Enabled = willEnableBtn;
+            resetBtn.Enabled = willEnableBtn;
         }
 
         private void examItemsGrid_selectionChanged(object sender, EventArgs e)
@@ -232,15 +258,142 @@ namespace ExamMaker.Views.Basic
 
         private void saveItem_Click(object sender, EventArgs e)
         {
+            _selectedExamItem.ItemType = (ItemType)itemTypeDd.SelectedIndex + 1;
+            _selectedExamItem.Question = question.Text;
+            _selectedExamItem.Answer = answer.Text;
+            _selectedExamItem.Options.Clear();
+
+            if (_selectedExamItem.ItemType == ItemType.MultipleChoice)
+            {
+                setExamItemAnswerForMultipleChoice();
+            }
+
+            _examItemsRepository.Update(_selectedExamItem);
             _examItemsRepository.Save();
 
-            resetBtn.Enabled = false;
+            allowEditOfExamItem(false);
+
+            SortExamItems();
+            selectCurrentExamItem();
+        }
+
+        private void setExamItemAnswerForMultipleChoice()
+        {
+            _selectedExamItem.Options.Clear();
+            List<string> correctAnswers = new List<string>();
+            bool isCorrectAnswer;
+            int optionIndex;
+
+            foreach (string option in choicesList.Items)
+            {
+                optionIndex = choicesList.Items.IndexOf(option);
+
+                isCorrectAnswer = choicesList.CheckedIndices.Contains(optionIndex);
+
+                string[] optionAndOptionName = option.Split('.');
+                _selectedExamItem.Options.Add(new Option()
+                {
+                    Description = optionAndOptionName[1].Trim(),
+                    IsCorrectAnswer = isCorrectAnswer,
+                    OptionName = optionAndOptionName[0]
+                });
+                if (isCorrectAnswer)
+                {
+                    correctAnswers.Add(optionAndOptionName[0]);
+                }
+            }
+
+            _selectedExamItem.Answer =
+                string.Join(",", correctAnswers);
+
+            answer.Text = _selectedExamItem.Answer;
+        }
+
+        private void enableExamItemDetails(bool isEnabled)
+        {
+            _isCurrentRecordSaved = !isEnabled;
+            _shouldValidateRow = isEnabled;
+
+            editItemBtn.Enabled = !isEnabled;
+            saveItem.Enabled = isEnabled;
+            discardChanges.Enabled = isEnabled;
+
+            itemTypeLbl.Enabled = isEnabled;
+            itemTypeDd.Enabled = isEnabled;
+            
+            question.Enabled = isEnabled;
+            choicesList.Enabled = isEnabled;
+            addChoiceBtn.Enabled = isEnabled;
+            previewTab.Enabled = isEnabled;
+            answerBox.Enabled = isEnabled;
         }
 
         private void saveExamBtn_Click(object sender, EventArgs e)
         {
             _examRepository.Save();
         }
+
+        private void itemTypeDd_selectedIndexChanged(object sender, EventArgs e)
+        {
+            int examTypeIndex = ((ComboBox) sender).SelectedIndex + 1;
+            showOrHideChoicesTabForExamItem(examTypeIndex);
+        }
+
+        private void examItemsGrid_rowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (_selectedExamItem != null && _shouldValidateRow && !_isCurrentRecordSaved)
+            {
+                DialogResult result = MessageBox.Show(
+                String.Format(_resourceManager.GetString("saveExamItemConfirm"),
+                    _selectedExamItem.ItemNumber),
+                string.Empty, MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    allowEditOfExamItem(false);
+                }
+            }
+            
+        }
+
+        private void editItemBtn_Click(object sender, EventArgs e)
+        {
+            resetBtn_Click(sender, e);
+            allowEditOfExamItem(true);
+        }
+
+        private void saveOrder_Click(object sender, EventArgs e)
+        {
+            _examItemsRepository.Save();
+            enableResetBtn(false);
+        }
+
+        private void allowEditOfExamItem(bool allowEdit)
+        {
+            enableExamItemDetails(allowEdit);
+
+            itemNumLbl.Enabled = !allowEdit;
+            itemNum.Enabled = !allowEdit;
+        }
+
+        private void discardChanges_Click(object sender, EventArgs e)
+        {
+            resetBtn_Click(sender, e);
+            allowEditOfExamItem(false);
+        }
+
+        private void choicesList_selectedIndexChanged(object sender, EventArgs e)
+        {
+            setExamItemAnswerForMultipleChoice();
+        }
+
+    
+
+        
 
     }
 }

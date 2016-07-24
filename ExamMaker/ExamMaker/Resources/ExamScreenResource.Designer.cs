@@ -97,5 +97,14 @@ namespace ExamMaker.Resources {
                 return ResourceManager.GetString("exportExamSuccessMsg", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to save your changes for Exam Item #{0}?.
+        /// </summary>
+        internal static string saveExamItemConfirm {
+            get {
+                return ResourceManager.GetString("saveExamItemConfirm", resourceCulture);
+            }
+        }
     }
 }
