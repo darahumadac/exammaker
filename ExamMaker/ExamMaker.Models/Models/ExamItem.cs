@@ -29,6 +29,5 @@ namespace ExamMaker.Models.Models
             get;
             set;
         }
-
     }
 }

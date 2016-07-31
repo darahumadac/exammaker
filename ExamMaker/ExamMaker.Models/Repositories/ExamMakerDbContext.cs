@@ -12,6 +12,7 @@ namespace ExamMaker.Models.Repositories
 
         public DbSet<User> Users { get; set; }
         public DbSet<Exam> Exams { get; set; }
+        public DbSet<Option> Options { get; set; }
     }
 
     

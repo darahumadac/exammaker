@@ -37,7 +37,7 @@
             this.totalQuestionsLbl = new System.Windows.Forms.Label();
             this.viewTypeDd = new System.Windows.Forms.ComboBox();
             this.viewByLbl = new System.Windows.Forms.Label();
-            this.addExamSectionBtn = new System.Windows.Forms.Button();
+            this.addItemBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.examDate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
@@ -52,7 +52,8 @@
             this.examNameError = new System.Windows.Forms.ErrorProvider(this.components);
             this.examPasswordError = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.editItemBtn = new System.Windows.Forms.Button();
+            this.discardChanges = new System.Windows.Forms.Button();
+            this.saveOrder = new System.Windows.Forms.Button();
             this.itemTypeLbl = new System.Windows.Forms.Label();
             this.faqImg = new System.Windows.Forms.PictureBox();
             this.itemNum = new System.Windows.Forms.NumericUpDown();
@@ -65,14 +66,16 @@
             this.questionTab = new System.Windows.Forms.TabPage();
             this.question = new System.Windows.Forms.TextBox();
             this.choicesTab = new System.Windows.Forms.TabPage();
+            this.editChoice = new System.Windows.Forms.Button();
+            this.deleteChoice = new System.Windows.Forms.Button();
             this.addChoiceBtn = new System.Windows.Forms.Button();
             this.choicesList = new System.Windows.Forms.CheckedListBox();
             this.previewTab = new System.Windows.Forms.TabPage();
+            this.editItemBtn = new System.Windows.Forms.Button();
             this.resetBtn = new System.Windows.Forms.Button();
             this.saveItemTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.label8 = new System.Windows.Forms.Label();
-            this.saveOrder = new System.Windows.Forms.Button();
-            this.discardChanges = new System.Windows.Forms.Button();
+            this.deleteItem = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.examItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examNameError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).BeginInit();
@@ -100,6 +103,7 @@
             this.examItemsGrid.Size = new System.Drawing.Size(400, 308);
             this.examItemsGrid.TabIndex = 0;
             this.examItemsGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.examItemsGrid_rowAdded);
+            this.examItemsGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.examItemsGrid_rowRemoved);
             this.examItemsGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.examItemsGrid_rowValidating);
             this.examItemsGrid.SelectionChanged += new System.EventHandler(this.examItemsGrid_selectionChanged);
             // 
@@ -165,14 +169,15 @@
             this.viewByLbl.TabIndex = 10;
             this.viewByLbl.Text = "View Questions By";
             // 
-            // addExamSectionBtn
+            // addItemBtn
             // 
-            this.addExamSectionBtn.Location = new System.Drawing.Point(242, 107);
-            this.addExamSectionBtn.Name = "addExamSectionBtn";
-            this.addExamSectionBtn.Size = new System.Drawing.Size(82, 23);
-            this.addExamSectionBtn.TabIndex = 11;
-            this.addExamSectionBtn.Text = "Add Item...";
-            this.addExamSectionBtn.UseVisualStyleBackColor = true;
+            this.addItemBtn.Location = new System.Drawing.Point(242, 107);
+            this.addItemBtn.Name = "addItemBtn";
+            this.addItemBtn.Size = new System.Drawing.Size(82, 23);
+            this.addItemBtn.TabIndex = 11;
+            this.addItemBtn.Text = "Add Item...";
+            this.addItemBtn.UseVisualStyleBackColor = true;
+            this.addItemBtn.Click += new System.EventHandler(this.addItemBtn_Click);
             // 
             // label6
             // 
@@ -306,15 +311,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Exam Item";
             // 
-            // editItemBtn
+            // discardChanges
             // 
-            this.editItemBtn.Location = new System.Drawing.Point(330, 106);
-            this.editItemBtn.Name = "editItemBtn";
-            this.editItemBtn.Size = new System.Drawing.Size(82, 24);
-            this.editItemBtn.TabIndex = 45;
-            this.editItemBtn.Text = "Edit Item";
-            this.editItemBtn.UseVisualStyleBackColor = true;
-            this.editItemBtn.Click += new System.EventHandler(this.editItemBtn_Click);
+            this.discardChanges.CausesValidation = false;
+            this.discardChanges.Enabled = false;
+            this.discardChanges.Location = new System.Drawing.Point(13, 310);
+            this.discardChanges.Name = "discardChanges";
+            this.discardChanges.Size = new System.Drawing.Size(75, 24);
+            this.discardChanges.TabIndex = 47;
+            this.discardChanges.Text = "Cancel";
+            this.discardChanges.UseVisualStyleBackColor = true;
+            this.discardChanges.Click += new System.EventHandler(this.discardChanges_Click);
+            // 
+            // saveOrder
+            // 
+            this.saveOrder.Location = new System.Drawing.Point(228, 24);
+            this.saveOrder.Name = "saveOrder";
+            this.saveOrder.Size = new System.Drawing.Size(75, 24);
+            this.saveOrder.TabIndex = 46;
+            this.saveOrder.Text = "Save Order";
+            this.saveOrder.UseVisualStyleBackColor = true;
+            this.saveOrder.Click += new System.EventHandler(this.saveOrder_Click);
             // 
             // itemTypeLbl
             // 
@@ -440,6 +457,8 @@
             // 
             // choicesTab
             // 
+            this.choicesTab.Controls.Add(this.editChoice);
+            this.choicesTab.Controls.Add(this.deleteChoice);
             this.choicesTab.Controls.Add(this.addChoiceBtn);
             this.choicesTab.Controls.Add(this.choicesList);
             this.choicesTab.Location = new System.Drawing.Point(4, 22);
@@ -450,6 +469,28 @@
             this.choicesTab.Text = "Choices";
             this.choicesTab.UseVisualStyleBackColor = true;
             // 
+            // editChoice
+            // 
+            this.editChoice.Enabled = false;
+            this.editChoice.Location = new System.Drawing.Point(131, 94);
+            this.editChoice.Name = "editChoice";
+            this.editChoice.Size = new System.Drawing.Size(75, 23);
+            this.editChoice.TabIndex = 3;
+            this.editChoice.Text = "Edit Choice";
+            this.editChoice.UseVisualStyleBackColor = true;
+            this.editChoice.Click += new System.EventHandler(this.editChoice_Click);
+            // 
+            // deleteChoice
+            // 
+            this.deleteChoice.Enabled = false;
+            this.deleteChoice.Location = new System.Drawing.Point(7, 94);
+            this.deleteChoice.Name = "deleteChoice";
+            this.deleteChoice.Size = new System.Drawing.Size(92, 23);
+            this.deleteChoice.TabIndex = 2;
+            this.deleteChoice.Text = "Delete Choice";
+            this.deleteChoice.UseVisualStyleBackColor = true;
+            this.deleteChoice.Click += new System.EventHandler(this.deleteChoice_Click);
+            // 
             // addChoiceBtn
             // 
             this.addChoiceBtn.Enabled = false;
@@ -457,8 +498,9 @@
             this.addChoiceBtn.Name = "addChoiceBtn";
             this.addChoiceBtn.Size = new System.Drawing.Size(75, 23);
             this.addChoiceBtn.TabIndex = 1;
-            this.addChoiceBtn.Text = "Add Choices";
+            this.addChoiceBtn.Text = "Add Choice";
             this.addChoiceBtn.UseVisualStyleBackColor = true;
+            this.addChoiceBtn.Click += new System.EventHandler(this.addChoiceBtn_Click);
             // 
             // choicesList
             // 
@@ -478,6 +520,16 @@
             this.previewTab.TabIndex = 2;
             this.previewTab.Text = "Question Preview";
             this.previewTab.UseVisualStyleBackColor = true;
+            // 
+            // editItemBtn
+            // 
+            this.editItemBtn.Location = new System.Drawing.Point(330, 106);
+            this.editItemBtn.Name = "editItemBtn";
+            this.editItemBtn.Size = new System.Drawing.Size(82, 24);
+            this.editItemBtn.TabIndex = 45;
+            this.editItemBtn.Text = "Edit Item";
+            this.editItemBtn.UseVisualStyleBackColor = true;
+            this.editItemBtn.Click += new System.EventHandler(this.editItemBtn_Click);
             // 
             // resetBtn
             // 
@@ -502,27 +554,15 @@
             this.label8.TabIndex = 27;
             this.label8.Text = "Exam Name";
             // 
-            // saveOrder
+            // deleteItem
             // 
-            this.saveOrder.Location = new System.Drawing.Point(228, 24);
-            this.saveOrder.Name = "saveOrder";
-            this.saveOrder.Size = new System.Drawing.Size(75, 24);
-            this.saveOrder.TabIndex = 46;
-            this.saveOrder.Text = "Save Order";
-            this.saveOrder.UseVisualStyleBackColor = true;
-            this.saveOrder.Click += new System.EventHandler(this.saveOrder_Click);
-            // 
-            // discardChanges
-            // 
-            this.discardChanges.CausesValidation = false;
-            this.discardChanges.Enabled = false;
-            this.discardChanges.Location = new System.Drawing.Point(13, 310);
-            this.discardChanges.Name = "discardChanges";
-            this.discardChanges.Size = new System.Drawing.Size(96, 24);
-            this.discardChanges.TabIndex = 47;
-            this.discardChanges.Text = "Discard Changes";
-            this.discardChanges.UseVisualStyleBackColor = true;
-            this.discardChanges.Click += new System.EventHandler(this.discardChanges_Click);
+            this.deleteItem.Location = new System.Drawing.Point(330, 455);
+            this.deleteItem.Name = "deleteItem";
+            this.deleteItem.Size = new System.Drawing.Size(82, 23);
+            this.deleteItem.TabIndex = 46;
+            this.deleteItem.Text = "Delete Item";
+            this.deleteItem.UseVisualStyleBackColor = true;
+            this.deleteItem.Click += new System.EventHandler(this.deleteItem_Click);
             // 
             // ExamScreen
             // 
@@ -530,6 +570,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(765, 509);
+            this.Controls.Add(this.deleteItem);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.editItemBtn);
@@ -545,7 +586,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.examDate);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.addExamSectionBtn);
+            this.Controls.Add(this.addItemBtn);
             this.Controls.Add(this.viewByLbl);
             this.Controls.Add(this.viewTypeDd);
             this.Controls.Add(this.totalQuestionsLbl);
@@ -586,7 +627,7 @@
         private System.Windows.Forms.Label totalQuestionsLbl;
         private System.Windows.Forms.ComboBox viewTypeDd;
         private System.Windows.Forms.Label viewByLbl;
-        private System.Windows.Forms.Button addExamSectionBtn;
+        private System.Windows.Forms.Button addItemBtn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker examDate;
         private System.Windows.Forms.Label label7;
@@ -623,5 +664,8 @@
         private System.Windows.Forms.Button editItemBtn;
         private System.Windows.Forms.Button saveOrder;
         private System.Windows.Forms.Button discardChanges;
+        private System.Windows.Forms.Button deleteItem;
+        private System.Windows.Forms.Button deleteChoice;
+        private System.Windows.Forms.Button editChoice;
     }
 }

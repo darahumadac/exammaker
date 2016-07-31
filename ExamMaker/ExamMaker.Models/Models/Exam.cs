@@ -27,7 +27,7 @@ namespace ExamMaker.Models.Models
         [Required(AllowEmptyStrings = false,
             ErrorMessageResourceName = "scheduledExamDateRequired",
             ErrorMessageResourceType = typeof(ExamMakerResource))]
-        [DateRange]
+        
         [DisplayName("Exam Date")]
         public DateTime ScheduledExamDate { get; set; }
 

@@ -4,8 +4,9 @@ namespace ExamMaker.Views
     {
         void Show();
         void LoadRecord();
-        void SortExamItems();
+        void LoadAndSortExamItems();
         void SetUIDefaults();
         void InitializeUI();
+        void LoadExamItemChoices();
     }
 }

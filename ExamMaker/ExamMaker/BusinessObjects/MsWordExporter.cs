@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
+using ExamMaker.Formatters;
 using ExamMaker.Models.Models;
 using Microsoft.Office.Interop.Word;
 using Ref = System.Reflection;
@@ -27,9 +30,16 @@ namespace ExamMaker.BusinessObjects
             insertTitleParagraph(answerKeyDoc, String.Format("Answer Key for Exam {0}", _exam.ExamId));
 
             Paragraph bodyParagraph = answerKeyDoc.Paragraphs.Add();
-            foreach (var examItem in _exam.ExamItems)
+            string answer;
+            foreach (var examItem in _exam.ExamItems.OrderBy(i => i.ItemNumber))
             {
-                bodyParagraph.Range.Text = String.Format("{0}.  {1}", examItem.ItemNumber, examItem.Answer);
+                answer = !string.IsNullOrEmpty(examItem.Answer) ? examItem.Answer : "None";
+
+                bodyParagraph.Range.Text = String.Format("{0}.[{1}] - {2}", 
+                    examItem.ItemNumber, 
+                    examItem.ItemType,
+                    answer);
+
                 insertParagraph(1, bodyParagraph);
             }
 
@@ -39,6 +49,7 @@ namespace ExamMaker.BusinessObjects
         private void setFontAndAfterSpacingToDefault(Document document)
         {
             document.Content.Font.Name = "Times New Roman";
+            document.Content.Font.Size = 12.0f;
             document.Content.Paragraphs.Format.LineUnitAfter = 0.5f;
         }
 
@@ -95,6 +106,21 @@ namespace ExamMaker.BusinessObjects
 
             string[] examTypeTemplates = getExamItemTemplateFilenames();
 
+            Paragraph examItemParagraph = examDocument.Paragraphs.Add();
+            List<ItemTypeFormatter> formatters = new List<ItemTypeFormatter>
+            {
+                new FillInTheBlanksFormatter(1, examItemParagraph),
+                new IdentificationFormatter(2, examItemParagraph),
+                new EssayFormatter(3, examItemParagraph),
+                new MultipleChoiceFormatter(4, examItemParagraph)
+            };
+
+            foreach (ItemTypeFormatter itemTypeFormatter in formatters.OrderBy(f => f.Order))
+            {
+                itemTypeFormatter.FormatAndWriteQuestions(_exam.ExamItems);
+                insertParagraph(2, examItemParagraph);
+            }
+
             saveAndCloseDocument(examDocument, filePath, msWordApp);
 
         }
@@ -136,4 +162,6 @@ namespace ExamMaker.BusinessObjects
 
 
     }
+
+    
 }

@@ -9,6 +9,5 @@ namespace ExamMaker.Models.Models
         MultipleChoice = 2,
         Essay = 3,
         Identification = 4
-
     }
 }

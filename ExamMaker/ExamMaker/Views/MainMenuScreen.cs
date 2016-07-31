@@ -35,7 +35,7 @@ namespace ExamMaker.Views
         private void viewOrEditExamBtn_Click(object sender, EventArgs e)
         {
             IExamListView examListScreen = new ExamListScreen(_appRepository.ExamRepository, 
-                _appRepository.ExamItemRepository);
+                _appRepository.ExamItemRepository, _appRepository.OptionRepository);
             examListScreen.Show();
         }
     }

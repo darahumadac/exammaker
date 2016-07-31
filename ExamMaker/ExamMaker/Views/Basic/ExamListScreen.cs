@@ -16,16 +16,19 @@ namespace ExamMaker.Views.Basic
     {
         private readonly Repository<Exam> _examRepository;
         private readonly Repository<ExamItem> _examItemsRepository;
+        private readonly Repository<Option> _optionRepository;
         private ExamListPresenter _examListPresenter;
         private ResourceManager _resourceManager;
         private int _examListShownColumnCount;
 
-        public ExamListScreen(Repository<Exam> examRepository, Repository<ExamItem> examItemsRepository)
+        public ExamListScreen(Repository<Exam> examRepository, 
+            Repository<ExamItem> examItemsRepository, Repository<Option> optionRepository)
         {
             InitializeComponent();
 
             _examRepository = examRepository;
             _examItemsRepository = examItemsRepository;
+            _optionRepository = optionRepository;
             _examListPresenter = new ExamListPresenter(this);
             _resourceManager = new ResourceManager("ExamMaker.Resources.ExamListResource", Assembly.GetExecutingAssembly());
             _examListShownColumnCount =
@@ -57,7 +60,8 @@ namespace ExamMaker.Views.Basic
         private void viewOrEditExamBtn_Click(object sender, EventArgs e)
         {
             Exam selectedExamRecord = (Exam)examListGrid.SelectedRows[0].DataBoundItem;
-            IExamView examView = new ExamScreen(selectedExamRecord, _examRepository, _examItemsRepository);
+            IExamView examView = new ExamScreen(selectedExamRecord, 
+                _examRepository, _examItemsRepository, _optionRepository);
             examView.Show();
         }
     }

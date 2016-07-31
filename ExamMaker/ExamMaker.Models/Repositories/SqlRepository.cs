@@ -48,7 +48,8 @@ namespace ExamMaker.Models.Repositories
 
         public void Revert()
         {
-            var modifiedEntries = _dbContext.ChangeTracker.Entries().Where(e => e.State == EntityState.Modified).ToList();
+            var modifiedEntries = _dbContext.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Modified).ToList();
             
             foreach (var modifiedEntry in modifiedEntries)
             {
