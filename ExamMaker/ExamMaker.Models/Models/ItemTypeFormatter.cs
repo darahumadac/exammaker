@@ -22,6 +22,10 @@ namespace ExamMaker.Models.Models
             _examParagraph = examParagraph;
         }
 
+        protected ItemTypeFormatter()
+        {
+        }
+
         public virtual void FormatAndWriteQuestions( List<ExamItem> examItems)
         {
             _itemTypeExamItemsFiltered = examItems.FindAll(i => i.ItemType == _itemType);

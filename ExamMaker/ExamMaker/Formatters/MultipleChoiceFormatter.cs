@@ -8,12 +8,14 @@ using Microsoft.Office.Interop.Word;
 
 namespace ExamMaker.Formatters
 {
-    public class MultipleChoiceFormatter : ItemTypeFormatter
+    public class MultipleChoiceFormatter : ItemTypeFormatter, IQuestionFormatter
     {
         public MultipleChoiceFormatter(int order, Paragraph examParagraph) 
             : base(order, ItemType.MultipleChoice, "multipleChoiceInstructions", examParagraph)
         {
         }
+
+        public MultipleChoiceFormatter() { }
 
         public override void FormatAndWriteQuestions(List<ExamItem> examItems)
         {
@@ -41,6 +43,20 @@ namespace ExamMaker.Formatters
 
                 
             }
+        }
+
+        public string GetFormattedQuestion(ExamItem examItem)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(examItem.Question);
+
+            foreach (var option in examItem.Options)
+            {
+                sb.AppendLine(String.Format("\t{0}. {1}", option.OptionName, option.Description));
+            }
+
+            return sb.ToString();
         }
     }
 }

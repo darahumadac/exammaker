@@ -85,6 +85,7 @@
     <Compile Include="Models\ExamItem.cs" />
     <Compile Include="Models\Exporter.cs" />
     <Compile Include="Models\IExamManager.cs" />
+    <Compile Include="Models\IQuestionFormatter.cs" />
     <Compile Include="Models\ItemTypeFormatter.cs" />
     <Compile Include="Repositories\ExamMakerDbContext.cs" />
     <Compile Include="ExamMakerResource.Designer.cs">

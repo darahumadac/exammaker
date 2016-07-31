@@ -70,6 +70,7 @@
     <Compile Include="Formatters\FillInTheBlanksFormatter.cs" />
     <Compile Include="Formatters\IdentificationFormatter.cs" />
     <Compile Include="Formatters\MultipleChoiceFormatter.cs" />
+    <Compile Include="Formatters\QuestionFormatter.cs" />
     <Compile Include="Resources\ExamListResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

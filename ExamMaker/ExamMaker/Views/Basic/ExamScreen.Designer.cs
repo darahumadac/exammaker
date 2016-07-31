@@ -76,6 +76,7 @@
             this.saveItemTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.deleteItem = new System.Windows.Forms.Button();
+            this.previewQuestion = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.examItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examNameError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).BeginInit();
@@ -86,6 +87,7 @@
             this.examQuestionDetails.SuspendLayout();
             this.questionTab.SuspendLayout();
             this.choicesTab.SuspendLayout();
+            this.previewTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // examItemsGrid
@@ -514,6 +516,7 @@
             // 
             // previewTab
             // 
+            this.previewTab.Controls.Add(this.previewQuestion);
             this.previewTab.Location = new System.Drawing.Point(4, 22);
             this.previewTab.Name = "previewTab";
             this.previewTab.Size = new System.Drawing.Size(293, 120);
@@ -564,6 +567,16 @@
             this.deleteItem.UseVisualStyleBackColor = true;
             this.deleteItem.Click += new System.EventHandler(this.deleteItem_Click);
             // 
+            // previewQuestion
+            // 
+            this.previewQuestion.Enabled = false;
+            this.previewQuestion.Location = new System.Drawing.Point(3, 4);
+            this.previewQuestion.Multiline = true;
+            this.previewQuestion.Name = "previewQuestion";
+            this.previewQuestion.ReadOnly = true;
+            this.previewQuestion.Size = new System.Drawing.Size(287, 113);
+            this.previewQuestion.TabIndex = 0;
+            // 
             // ExamScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,6 +624,8 @@
             this.questionTab.ResumeLayout(false);
             this.questionTab.PerformLayout();
             this.choicesTab.ResumeLayout(false);
+            this.previewTab.ResumeLayout(false);
+            this.previewTab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -667,5 +682,6 @@
         private System.Windows.Forms.Button deleteItem;
         private System.Windows.Forms.Button deleteChoice;
         private System.Windows.Forms.Button editChoice;
+        private System.Windows.Forms.TextBox previewQuestion;
     }
 }
