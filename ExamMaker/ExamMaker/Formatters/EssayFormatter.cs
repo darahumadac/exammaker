@@ -8,11 +8,16 @@ using Microsoft.Office.Interop.Word;
 
 namespace ExamMaker.Formatters
 {
-    public class EssayFormatter : ItemTypeFormatter
+    public class EssayFormatter : ItemTypeFormatter, IQuestionFormatter
     {
         public EssayFormatter(int order, Paragraph examParagraph) :
             base(order, ItemType.Essay, "essayInstructions", examParagraph)
         {
+        }
+
+        public EssayFormatter()
+        {
+            
         }
 
         public override void FormatAndWriteQuestions(List<ExamItem> examItems)
@@ -52,8 +57,11 @@ namespace ExamMaker.Formatters
                 }
             }
 
-            
+        }
 
+        public string GetFormattedQuestion(ExamItem examItem)
+        {
+            return examItem.Question;
         }
     }
 }
