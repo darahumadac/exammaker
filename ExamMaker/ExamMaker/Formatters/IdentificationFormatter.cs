@@ -5,14 +5,12 @@ using Microsoft.Office.Interop.Word;
 
 namespace ExamMaker.Formatters
 {
-    public class IdentificationFormatter : ItemTypeFormatter, IQuestionFormatter
+    public class IdentificationFormatter : ItemTypeFormatter
     {
         public IdentificationFormatter(int order, Paragraph examParagraph)
             : base(order, ItemType.Identification, "identificationInstructions", examParagraph)
         {
         }
-
-        public IdentificationFormatter() { }
 
         public override void FormatAndWriteQuestions(List<ExamItem> examItems)
         {
@@ -31,11 +29,6 @@ namespace ExamMaker.Formatters
                 _examParagraph.Range.Text = question;
                 _examParagraph.Range.InsertParagraphAfter();
             }
-        }
-
-        public string GetFormattedQuestion(ExamItem examItem)
-        {
-            return String.Format("________________.{0}", examItem.Question);
         }
     }
 }

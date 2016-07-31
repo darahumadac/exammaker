@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using ExamMaker.BusinessObjects;
-using ExamMaker.Formatters;
 using ExamMaker.Models.Models;
 using ExamMaker.Models.Repositories;
 using ExamMaker.Presenters.Presenters;
@@ -149,9 +148,6 @@ namespace ExamMaker.Views.Basic
                 answer.Text = _selectedExamItem.Answer;
 
                 showOrHideChoicesTabForExamItem((int)_selectedExamItem.ItemType);
-
-                previewQuestion.Text = QuestionFormatter.GetFormattedQuestion(_selectedExamItem);
-                
             }
         }
 

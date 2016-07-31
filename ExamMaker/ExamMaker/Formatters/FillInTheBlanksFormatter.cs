@@ -5,16 +5,11 @@ using Microsoft.Office.Interop.Word;
 
 namespace ExamMaker.Formatters
 {
-    public class FillInTheBlanksFormatter : ItemTypeFormatter, IQuestionFormatter
+    public class FillInTheBlanksFormatter : ItemTypeFormatter
     {
         public FillInTheBlanksFormatter(int order, Paragraph examParagraph)
             : base(order, ItemType.FillInTheBlanks, "fillInTheBlanksInstructions", examParagraph)
         {
-        }
-
-        public FillInTheBlanksFormatter()
-        {
-            
         }
 
         public override void FormatAndWriteQuestions(List<ExamItem> examItems)
@@ -33,11 +28,6 @@ namespace ExamMaker.Formatters
                 _examParagraph.Range.Text = question;
                 _examParagraph.Range.InsertParagraphAfter();
             }
-        }
-
-        public string GetFormattedQuestion(ExamItem examItem)
-        {
-            return String.Format("{0}", examItem.Question.Replace("_", "________________"));
         }
     }
 }
