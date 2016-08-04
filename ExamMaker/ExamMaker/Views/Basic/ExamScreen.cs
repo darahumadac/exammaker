@@ -25,7 +25,6 @@ namespace ExamMaker.Views.Basic
         private ResourceManager _resourceManager;
 
         private List<ExamItem> _examItems;
-        private List<ExamItem> _examItemsRemoved; 
         private ExamItem _selectedExamItem;
         private bool _hasExamItems;
         private bool _shouldValidateRow;
@@ -48,7 +47,6 @@ namespace ExamMaker.Views.Basic
             _examItemsRepository = examItemsRepository;
             _optionRepository = optionRepository;
             _examItems = _examRecord.ExamItems.OrderBy(e => e.ItemNumber).ToList();
-            _examItemsRemoved = new List<ExamItem>();
             _hasExamItems = _examItems.Count > 0;
             _hasSelectedRow = false;
             _shouldValidateRow = false;
@@ -411,7 +409,6 @@ namespace ExamMaker.Views.Basic
             _examRepository.Update(_examRecord);
             _examRepository.Save();
 
-            _examItemsRemoved.Clear();
             LoadAndSortExamItems();
         }
 
