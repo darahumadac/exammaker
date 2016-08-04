@@ -10,8 +10,8 @@ namespace ExamMaker.Formatters
 {
     public class EssayFormatter : ItemTypeFormatter, IQuestionFormatter
     {
-        public EssayFormatter(int order, Paragraph examParagraph) :
-            base(order, ItemType.Essay, "essayInstructions", examParagraph)
+        public EssayFormatter(Paragraph examParagraph) :
+            base(ItemType.Essay, "essayInstructions", examParagraph)
         {
         }
 

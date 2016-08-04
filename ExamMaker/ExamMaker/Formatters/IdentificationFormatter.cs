@@ -7,8 +7,8 @@ namespace ExamMaker.Formatters
 {
     public class IdentificationFormatter : ItemTypeFormatter, IQuestionFormatter
     {
-        public IdentificationFormatter(int order, Paragraph examParagraph)
-            : base(order, ItemType.Identification, "identificationInstructions", examParagraph)
+        public IdentificationFormatter(Paragraph examParagraph)
+            : base(ItemType.Identification, "identificationInstructions", examParagraph)
         {
         }
 

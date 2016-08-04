@@ -7,8 +7,8 @@ namespace ExamMaker.Formatters
 {
     public class FillInTheBlanksFormatter : ItemTypeFormatter, IQuestionFormatter
     {
-        public FillInTheBlanksFormatter(int order, Paragraph examParagraph)
-            : base(order, ItemType.FillInTheBlanks, "fillInTheBlanksInstructions", examParagraph)
+        public FillInTheBlanksFormatter(Paragraph examParagraph)
+            : base(ItemType.FillInTheBlanks, "fillInTheBlanksInstructions", examParagraph)
         {
         }
 

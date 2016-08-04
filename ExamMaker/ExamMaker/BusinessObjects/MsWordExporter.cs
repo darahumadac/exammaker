@@ -6,7 +6,7 @@ using System.Linq;
 using ExamMaker.Formatters;
 using ExamMaker.Models.Models;
 using Microsoft.Office.Interop.Word;
-using Ref = System.Reflection;
+using System.Reflection;
 using WF =  System.Windows.Forms;
 
 namespace ExamMaker.BusinessObjects
@@ -104,18 +104,13 @@ namespace ExamMaker.BusinessObjects
 
             insertTitleParagraph(examDocument, examDocumentTemplateFields, examDocumentTemplateValue);
 
-            string[] examTypeTemplates = getExamItemTemplateFilenames();
-
             Paragraph examItemParagraph = examDocument.Paragraphs.Add();
-            List<ItemTypeFormatter> formatters = new List<ItemTypeFormatter>
-            {
-                new FillInTheBlanksFormatter(1, examItemParagraph),
-                new IdentificationFormatter(2, examItemParagraph),
-                new EssayFormatter(3, examItemParagraph),
-                new MultipleChoiceFormatter(4, examItemParagraph)
-            };
 
-            foreach (ItemTypeFormatter itemTypeFormatter in formatters.OrderBy(f => f.Order))
+            getExamItemFormatters(examItemParagraph);
+
+            List<ItemTypeFormatter> formatters = getExamItemFormatters(examItemParagraph);
+
+            foreach (ItemTypeFormatter itemTypeFormatter in formatters)
             {
                 itemTypeFormatter.FormatAndWriteQuestions(_exam.ExamItems);
                 insertParagraph(2, examItemParagraph);
@@ -123,6 +118,44 @@ namespace ExamMaker.BusinessObjects
 
             saveAndCloseDocument(examDocument, filePath, msWordApp);
 
+        }
+
+        private List<ItemTypeFormatter> getExamItemFormatters(Paragraph examItemParagraph)
+        {
+
+            string[] formatters = ConfigurationManager.AppSettings["examFormatOrder"].Split(',');
+            List<ItemTypeFormatter> itemTypeFormatters = new List<ItemTypeFormatter>();
+            
+            if (formatters.Length == 0)
+            {
+                itemTypeFormatters = new List<ItemTypeFormatter>
+                {
+                    new FillInTheBlanksFormatter(examItemParagraph),
+                    new IdentificationFormatter(examItemParagraph),
+                    new EssayFormatter(examItemParagraph),
+                    new MultipleChoiceFormatter(examItemParagraph)
+                };
+            }
+            else
+            {
+                Type[] parameterType = { typeof(Paragraph) };
+                object[] contructorArgs = { examItemParagraph };
+                string formatterNamespace = ConfigurationManager.AppSettings["examFormatNamespace"];
+                string formatterFullName = string.Empty;
+
+                foreach (var formatter in formatters)
+                {
+                    formatterFullName = String.Format("{0}.{1}", formatterNamespace, formatter + "Formatter");
+                    Type formatterType = Type.GetType(formatterFullName) ?? typeof (EssayFormatter);
+
+                    ConstructorInfo constructor = formatterType.GetConstructor(parameterType);
+                    ItemTypeFormatter itemTypeFormatter = (ItemTypeFormatter)constructor.Invoke(contructorArgs);
+
+                    itemTypeFormatters.Add(itemTypeFormatter);
+                }
+            }
+
+            return itemTypeFormatters;
         }
 
         private void insertTitleParagraph(Document document, string[] templateFieldNames, string[] templateFieldValues)
@@ -144,22 +177,7 @@ namespace ExamMaker.BusinessObjects
                 headerRange.Execute(Replace: WdReplace.wdReplaceAll);
             }
         }
-
-        private string[] getExamItemTemplateFilenames()
-        {
-            string[] examItemTypes = Enum.GetNames(typeof (ItemType));
-            int examItemTypeCount = examItemTypes.Length;
-
-            string[] examItemTypeTemplateFilenames = new string[examItemTypeCount];
-
-            for (int i = 0; i < examItemTypeCount; i++)
-            {
-                examItemTypeTemplateFilenames[i] = String.Format("Templates\\{0}Template.docx", examItemTypes[i]);
-            }
-
-            return examItemTypeTemplateFilenames;
-        }
-
+       
 
     }
 

@@ -6,17 +6,14 @@ namespace ExamMaker.Models.Models
 {
     public abstract class ItemTypeFormatter
     {
-        public int Order { get; private set; }
-
         private readonly ItemType _itemType;
         private readonly string _appSettingKeyInstruction;
         protected Paragraph _examParagraph;
         protected List<ExamItem> _itemTypeExamItemsFiltered;
 
-        protected ItemTypeFormatter(int order, ItemType itemType, 
+        protected ItemTypeFormatter(ItemType itemType, 
             string appSettingKeyInstruction, Paragraph examParagraph)
         {
-            Order = order;
             _itemType = itemType;
             _appSettingKeyInstruction = appSettingKeyInstruction;
             _examParagraph = examParagraph;

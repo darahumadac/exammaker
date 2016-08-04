@@ -10,8 +10,8 @@ namespace ExamMaker.Formatters
 {
     public class MultipleChoiceFormatter : ItemTypeFormatter, IQuestionFormatter
     {
-        public MultipleChoiceFormatter(int order, Paragraph examParagraph) 
-            : base(order, ItemType.MultipleChoice, "multipleChoiceInstructions", examParagraph)
+        public MultipleChoiceFormatter(Paragraph examParagraph) 
+            : base(ItemType.MultipleChoice, "multipleChoiceInstructions", examParagraph)
         {
         }
 
