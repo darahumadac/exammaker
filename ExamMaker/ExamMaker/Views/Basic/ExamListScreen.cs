@@ -78,5 +78,10 @@ namespace ExamMaker.Views.Basic
                 _examListPresenter);
             passwordForm.Show();
         }
+
+        private void ExamListScreen_activated(object sender, EventArgs e)
+        {
+            _examListPresenter.LoadAllRecords(); 
+        }
     }
 }

@@ -115,6 +115,7 @@
             this.Controls.Add(this.examListGrid);
             this.Name = "ExamListScreen";
             this.Text = "Exam List";
+            this.Activated += new System.EventHandler(this.ExamListScreen_activated);
             this.Load += new System.EventHandler(this.ExamListScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.examListGrid)).EndInit();
             this.ResumeLayout(false);
