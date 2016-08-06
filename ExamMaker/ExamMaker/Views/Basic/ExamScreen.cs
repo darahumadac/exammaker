@@ -634,6 +634,8 @@ namespace ExamMaker.Views.Basic
             _examItemsRepository.Save();
 
             _examRecord.ExamItems = _examItems;
+            _hasExamItems = _examItems.Count > 0;
+
             _examRepository.Save();
 
             LoadAndSortExamItems();
@@ -670,6 +672,7 @@ namespace ExamMaker.Views.Basic
             {
                 editItemBtn.Enabled = false;
                 deleteItem.Enabled = false;
+                _hasExamItems = false;
             }
             
         }
