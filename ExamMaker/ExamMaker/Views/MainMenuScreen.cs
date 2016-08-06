@@ -28,7 +28,8 @@ namespace ExamMaker.Views
 
         private void createNewExamBtn_Click(object sender, EventArgs e)
         {
-            IExamView newExamScreen = new ExamScreen();
+            IExamView newExamScreen = new ExamScreen(_appRepository.ExamRepository,
+                _appRepository.ExamItemRepository, _appRepository.OptionRepository);
             newExamScreen.Show();
         }
 

@@ -21,7 +21,7 @@ namespace ExamMaker.Views.Basic
     {
         private ExamPresenter _examPresenter;
         private IExamManager _examManager;
-        private readonly Exam _examRecord;
+        private Exam _examRecord;
         private readonly Repository<Exam> _examRepository;
         private readonly Repository<ExamItem> _examItemsRepository;
         private readonly Repository<Option> _optionRepository;
@@ -36,9 +36,33 @@ namespace ExamMaker.Views.Basic
         private bool _hasSelectedRow;
         private bool _isCurrentRecordSaved;
 
-        public ExamScreen()
+        public ExamScreen(Repository<Exam> examRepository, Repository<ExamItem> examItemsRepository,
+            Repository<Option> optionRepository)
         {
             InitializeComponent();
+
+            _examRepository = examRepository;
+            _examItemsRepository = examItemsRepository; 
+            _optionRepository = optionRepository;
+
+            _examItems = new List<ExamItem>();
+            _hasExamItems = false;
+            _examRecord = new Exam()
+            {
+                ExamItems = _examItems,
+                ExamName = "New Exam " + (_examRepository.GetAll().Count + 1),
+                ExamPassword = Program.LoggedInUser.Password,
+                Type = ExamType.Quiz,
+                ScheduledExamDate = DateTime.Now,
+                UserId = Program.LoggedInUser.UserId
+            };
+
+
+            _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
+            _examPresenter = new ExamPresenter(this);
+
+            SetUIDefaults();
+            InitializeUI();
         }
 
         public ExamScreen(Exam examRecord, Repository<Exam> examRepository, 
@@ -90,6 +114,11 @@ namespace ExamMaker.Views.Basic
                 itemNum.Minimum = 1;
                 itemNum.Maximum = _examItems.Count;
             }
+            else
+            {
+                deleteItem.Enabled = false;
+                editItemBtn.Enabled = false;
+            }
         }
 
         public void LoadExamItemChoices()
@@ -99,10 +128,7 @@ namespace ExamMaker.Views.Basic
 
         private void ExamScreen_Load(object sender, EventArgs e)
         {
-            if (_examRecord != null)
-            {
-                _examPresenter.LoadRecord();
-            }
+            _examPresenter.LoadRecord();
         }
 
         public void LoadRecord()
@@ -257,6 +283,7 @@ namespace ExamMaker.Views.Basic
         {
             _hasSelectedRow = false;
             examItemsGrid.DataSource = _examItems.OrderBy(i => i.ItemNumber).ToList();
+            totalQuestionsLbl.Text = String.Format("{0} items", _examItems.Count);
         }
 
         private void selectCurrentExamItem()
@@ -306,7 +333,16 @@ namespace ExamMaker.Views.Basic
             }
 
             _optionRepository.Save();
-            _examItemsRepository.Update(_selectedExamItem);
+
+            if (_selectedExamItem.ExamItemId == 0)
+            {
+                _examItemsRepository.Add(_selectedExamItem);
+            }
+            else
+            {
+                _examItemsRepository.Update(_selectedExamItem);
+            }
+
             _examItemsRepository.Save();
 
             allowEditOfExamItem(false);
@@ -409,19 +445,10 @@ namespace ExamMaker.Views.Basic
 
         private void saveExamBtn_Click(object sender, EventArgs e)
         {
-            ValidateChildren();
-            _examRecord.ExamName = examName.Text;
-            _examRecord.ExamPassword = examPassword.Text;
-            _examRecord.Type = (ExamType)examTypeDd.SelectedIndex + 1;
-            _examRecord.ScheduledExamDate = examDate.Value;
-            _examRecord.UserId = Program.LoggedInUser.UserId;
 
-            _examRecord.ExamItems = _examItems;
             try
             {
-                _examRepository.Update(_examRecord);
-                _examRepository.Save();
-
+                saveExam();
                 MessageBox.Show(_resourceManager.GetString("saveExamSuccessMsg"),
                     _resourceManager.GetString("saveExamSuccessCaption"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -451,6 +478,30 @@ namespace ExamMaker.Views.Basic
 
             LoadAndSortExamItems();
 
+        }
+
+        private void saveExam()
+        {
+            ValidateChildren();
+
+            _examRecord.ExamName = examName.Text;
+            _examRecord.ExamPassword = examPassword.Text;
+            _examRecord.Type = (ExamType)examTypeDd.SelectedIndex + 1;
+            _examRecord.ScheduledExamDate = examDate.Value;
+            _examRecord.UserId = Program.LoggedInUser.UserId;
+
+            _examRecord.ExamItems = _examItems;
+
+            if (_examRecord.ExamId == 0)
+            {
+                _examRepository.Add(_examRecord);
+            }
+            else
+            {
+                _examRepository.Update(_examRecord);
+            }
+
+            _examRepository.Save();
         }
 
         private void itemTypeDd_selectedIndexChanged(object sender, EventArgs e)
@@ -519,15 +570,65 @@ namespace ExamMaker.Views.Basic
 
         private void addItemBtn_Click(object sender, EventArgs e)
         {
-            
-            ExamItem newExamItem = new ExamItem()
+            ExamItem newExamItem;
+
+            if (_examRecord.ExamId == 0)
             {
-                ItemNumber = _examItems.Count + 1,
-                ItemType = _examItems.Last().ItemType,
-                Question = string.Empty,
-                Answer = string.Empty,
-                Options = new List<Option>()
-            };
+                try
+                {
+                    saveExam();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    StringBuilder errorSb = new StringBuilder();
+                    errorSb.AppendLine(_resourceManager.GetString("saveExamErrorInstruction"));
+
+                    foreach (var error in ex.EntityValidationErrors.First().ValidationErrors)
+                    {
+                        errorSb.AppendLine("- " + error.ErrorMessage);
+                    }
+
+                    MessageBox.Show(errorSb.ToString(),
+                        _resourceManager.GetString("saveExamErrorCaption"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //TODO: Implement error logging
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(_resourceManager.GetString("saveExamErrorMsg"),
+                        _resourceManager.GetString("saveExamErrorCaption"),
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
+
+            if (_hasExamItems)
+            {
+                newExamItem = new ExamItem()
+                {
+                    ItemNumber = _examItems.Count + 1,
+                    ItemType = _examItems.Last().ItemType,
+                    Question = string.Empty,
+                    Answer = string.Empty,
+                    Options = new List<Option>()
+                };
+            }
+            else
+            {
+                newExamItem = new ExamItem()
+                {
+                    ExamId = _examRecord.ExamId,
+                    ItemNumber = 1,
+                    ItemType = ItemType.Identification,
+                    Question = string.Empty,
+                    Answer = string.Empty,
+                    Options = new List<Option>()
+                };
+
+                editItemBtn.Enabled = true;
+                deleteItem.Enabled = true;
+            }
+            
 
             _examItems.Add(newExamItem);
             _examItemsRepository.Save();
@@ -554,14 +655,23 @@ namespace ExamMaker.Views.Basic
 
             LoadAndSortExamItems();
 
-            if (itemNumberToRemove > _examItems.Count)
+            if (_examItems.Count > 0)
             {
-                selectExamItem(_examItems.Count - 1);
+                if (itemNumberToRemove > _examItems.Count)
+                {
+                    selectExamItem(_examItems.Count - 1);
+                }
+                else
+                {
+                    selectExamItem(itemToRemove.ItemNumber - 1);
+                }
             }
             else
             {
-                selectExamItem(itemToRemove.ItemNumber - 1);
+                editItemBtn.Enabled = false;
+                deleteItem.Enabled = false;
             }
+            
         }
 
         private void examItemsGrid_rowRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
