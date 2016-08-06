@@ -20,6 +20,7 @@ namespace ExamMaker.Views.Basic
         private ExamListPresenter _examListPresenter;
         private ResourceManager _resourceManager;
         private int _examListShownColumnCount;
+        private Exam _selectedExamRecord;
 
         public ExamListScreen(Repository<Exam> examRepository, 
             Repository<ExamItem> examItemsRepository, Repository<Option> optionRepository)
@@ -59,10 +60,23 @@ namespace ExamMaker.Views.Basic
 
         private void viewOrEditExamBtn_Click(object sender, EventArgs e)
         {
-            Exam selectedExamRecord = (Exam)examListGrid.SelectedRows[0].DataBoundItem;
-            IExamView examView = new ExamScreen(selectedExamRecord, 
+            _selectedExamRecord = (Exam)examListGrid.SelectedRows[0].DataBoundItem;
+            IExamView examView = new ExamScreen(_selectedExamRecord,
                 _examRepository, _examItemsRepository, _optionRepository);
-            examView.Show();
+
+            EnterPasswordForm passwordForm = new EnterPasswordForm(_selectedExamRecord.ExamPassword, examView);
+            passwordForm.Show();
+        }
+
+        private void deleteExamBtn_Click(object sender, EventArgs e)
+        {
+            _selectedExamRecord = (Exam)examListGrid.SelectedRows[0].DataBoundItem;
+
+            EnterPasswordForm passwordForm = new EnterPasswordForm(_selectedExamRecord.ExamPassword,
+                _examRepository, 
+                _selectedExamRecord,
+                _examListPresenter);
+            passwordForm.Show();
         }
     }
 }

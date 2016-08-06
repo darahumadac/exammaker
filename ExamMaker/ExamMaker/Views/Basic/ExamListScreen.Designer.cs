@@ -32,7 +32,7 @@
             this.examListLbl = new System.Windows.Forms.Label();
             this.totalExamsLbl = new System.Windows.Forms.Label();
             this.viewOrEditExamBtn = new System.Windows.Forms.Button();
-            this.discardExamBtn = new System.Windows.Forms.Button();
+            this.deleteExamBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.examListGrid)).BeginInit();
             this.SuspendLayout();
@@ -82,14 +82,15 @@
             this.viewOrEditExamBtn.UseVisualStyleBackColor = true;
             this.viewOrEditExamBtn.Click += new System.EventHandler(this.viewOrEditExamBtn_Click);
             // 
-            // discardExamBtn
+            // deleteExamBtn
             // 
-            this.discardExamBtn.Location = new System.Drawing.Point(603, 408);
-            this.discardExamBtn.Name = "discardExamBtn";
-            this.discardExamBtn.Size = new System.Drawing.Size(94, 24);
-            this.discardExamBtn.TabIndex = 21;
-            this.discardExamBtn.Text = "Delete Exam";
-            this.discardExamBtn.UseVisualStyleBackColor = true;
+            this.deleteExamBtn.Location = new System.Drawing.Point(603, 408);
+            this.deleteExamBtn.Name = "deleteExamBtn";
+            this.deleteExamBtn.Size = new System.Drawing.Size(94, 24);
+            this.deleteExamBtn.TabIndex = 21;
+            this.deleteExamBtn.Text = "Delete Exam";
+            this.deleteExamBtn.UseVisualStyleBackColor = true;
+            this.deleteExamBtn.Click += new System.EventHandler(this.deleteExamBtn_Click);
             // 
             // button1
             // 
@@ -107,7 +108,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(709, 442);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.discardExamBtn);
+            this.Controls.Add(this.deleteExamBtn);
             this.Controls.Add(this.viewOrEditExamBtn);
             this.Controls.Add(this.totalExamsLbl);
             this.Controls.Add(this.examListLbl);
@@ -127,7 +128,7 @@
         private System.Windows.Forms.Label examListLbl;
         private System.Windows.Forms.Label totalExamsLbl;
         private System.Windows.Forms.Button viewOrEditExamBtn;
-        private System.Windows.Forms.Button discardExamBtn;
+        private System.Windows.Forms.Button deleteExamBtn;
         private System.Windows.Forms.Button button1;
     }
 }
