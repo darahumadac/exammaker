@@ -131,7 +131,25 @@ Filename: {1}</value>
     <value>Exam was exported to {0} folder 
 Filename: {1}</value>
   </data>
+  <data name="saveExamErrorCaption" xml:space="preserve">
+    <value>Cannot Save Exam</value>
+  </data>
+  <data name="saveExamErrorInstruction" xml:space="preserve">
+    <value>Please correct the following errors:</value>
+  </data>
+  <data name="saveExamErrorMsg" xml:space="preserve">
+    <value>Unknown error encountered while saving your exam.  Please contact your administrator</value>
+  </data>
+  <data name="saveExamFirstMsg" xml:space="preserve">
+    <value>Click 'Save Exam' first to save exam item</value>
+  </data>
   <data name="saveExamItemConfirm" xml:space="preserve">
     <value>Would you like to save your changes for Exam Item #{0}?</value>
+  </data>
+  <data name="saveExamSuccessCaption" xml:space="preserve">
+    <value>Exam Saved</value>
+  </data>
+  <data name="saveExamSuccessMsg" xml:space="preserve">
+    <value>Exam was successfully saved</value>
   </data>
 </root>

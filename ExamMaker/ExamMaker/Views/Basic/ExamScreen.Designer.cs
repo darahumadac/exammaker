@@ -35,8 +35,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.examPassword = new System.Windows.Forms.MaskedTextBox();
             this.totalQuestionsLbl = new System.Windows.Forms.Label();
-            this.viewTypeDd = new System.Windows.Forms.ComboBox();
-            this.viewByLbl = new System.Windows.Forms.Label();
             this.addItemBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.examDate = new System.Windows.Forms.DateTimePicker();
@@ -45,7 +43,6 @@
             this.exportExamBtn = new System.Windows.Forms.Button();
             this.exportAnsKeyBtn = new System.Windows.Forms.Button();
             this.previewExamBtn = new System.Windows.Forms.Button();
-            this.printExamBtn = new System.Windows.Forms.Button();
             this.saveExamBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.examPreparedBy = new System.Windows.Forms.Label();
@@ -71,12 +68,12 @@
             this.addChoiceBtn = new System.Windows.Forms.Button();
             this.choicesList = new System.Windows.Forms.CheckedListBox();
             this.previewTab = new System.Windows.Forms.TabPage();
+            this.previewQuestion = new System.Windows.Forms.TextBox();
             this.editItemBtn = new System.Windows.Forms.Button();
             this.resetBtn = new System.Windows.Forms.Button();
             this.saveItemTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.deleteItem = new System.Windows.Forms.Button();
-            this.previewQuestion = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.examItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examNameError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).BeginInit();
@@ -112,7 +109,7 @@
             // examQuestionsListLbl
             // 
             this.examQuestionsListLbl.AutoSize = true;
-            this.examQuestionsListLbl.Location = new System.Drawing.Point(15, 83);
+            this.examQuestionsListLbl.Location = new System.Drawing.Point(12, 112);
             this.examQuestionsListLbl.Name = "examQuestionsListLbl";
             this.examQuestionsListLbl.Size = new System.Drawing.Size(59, 13);
             this.examQuestionsListLbl.TabIndex = 1;
@@ -124,6 +121,7 @@
             this.examName.Name = "examName";
             this.examName.Size = new System.Drawing.Size(121, 20);
             this.examName.TabIndex = 5;
+            this.examName.Validating += new System.ComponentModel.CancelEventHandler(this.examName_validating);
             // 
             // label3
             // 
@@ -141,35 +139,16 @@
             this.examPassword.Size = new System.Drawing.Size(89, 20);
             this.examPassword.TabIndex = 7;
             this.examPassword.UseSystemPasswordChar = true;
+            this.examPassword.Validating += new System.ComponentModel.CancelEventHandler(this.examPassword_validating);
             // 
             // totalQuestionsLbl
             // 
             this.totalQuestionsLbl.AutoSize = true;
-            this.totalQuestionsLbl.Location = new System.Drawing.Point(113, 83);
+            this.totalQuestionsLbl.Location = new System.Drawing.Point(82, 112);
             this.totalQuestionsLbl.Name = "totalQuestionsLbl";
             this.totalQuestionsLbl.Size = new System.Drawing.Size(40, 13);
             this.totalQuestionsLbl.TabIndex = 8;
             this.totalQuestionsLbl.Text = "0 items";
-            // 
-            // viewTypeDd
-            // 
-            this.viewTypeDd.FormattingEnabled = true;
-            this.viewTypeDd.Items.AddRange(new object[] {
-            "Section",
-            "Question Type"});
-            this.viewTypeDd.Location = new System.Drawing.Point(116, 105);
-            this.viewTypeDd.Name = "viewTypeDd";
-            this.viewTypeDd.Size = new System.Drawing.Size(93, 21);
-            this.viewTypeDd.TabIndex = 9;
-            // 
-            // viewByLbl
-            // 
-            this.viewByLbl.AutoSize = true;
-            this.viewByLbl.Location = new System.Drawing.Point(15, 109);
-            this.viewByLbl.Name = "viewByLbl";
-            this.viewByLbl.Size = new System.Drawing.Size(95, 13);
-            this.viewByLbl.TabIndex = 10;
-            this.viewByLbl.Text = "View Questions By";
             // 
             // addItemBtn
             // 
@@ -222,9 +201,9 @@
             // 
             // exportExamBtn
             // 
-            this.exportExamBtn.Location = new System.Drawing.Point(330, 78);
+            this.exportExamBtn.Location = new System.Drawing.Point(649, 43);
             this.exportExamBtn.Name = "exportExamBtn";
-            this.exportExamBtn.Size = new System.Drawing.Size(82, 22);
+            this.exportExamBtn.Size = new System.Drawing.Size(104, 26);
             this.exportExamBtn.TabIndex = 17;
             this.exportExamBtn.Text = "Export Exam";
             this.exportExamBtn.UseVisualStyleBackColor = true;
@@ -242,21 +221,12 @@
             // 
             // previewExamBtn
             // 
-            this.previewExamBtn.Location = new System.Drawing.Point(649, 44);
+            this.previewExamBtn.Location = new System.Drawing.Point(649, 13);
             this.previewExamBtn.Name = "previewExamBtn";
-            this.previewExamBtn.Size = new System.Drawing.Size(104, 24);
+            this.previewExamBtn.Size = new System.Drawing.Size(104, 26);
             this.previewExamBtn.TabIndex = 21;
-            this.previewExamBtn.Text = "Print Preview";
+            this.previewExamBtn.Text = "Preview Exam";
             this.previewExamBtn.UseVisualStyleBackColor = true;
-            // 
-            // printExamBtn
-            // 
-            this.printExamBtn.Location = new System.Drawing.Point(649, 11);
-            this.printExamBtn.Name = "printExamBtn";
-            this.printExamBtn.Size = new System.Drawing.Size(104, 24);
-            this.printExamBtn.TabIndex = 22;
-            this.printExamBtn.Text = "Print Exam";
-            this.printExamBtn.UseVisualStyleBackColor = true;
             // 
             // saveExamBtn
             // 
@@ -288,10 +258,12 @@
             // 
             // examNameError
             // 
+            this.examNameError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.examNameError.ContainerControl = this;
             // 
             // examPasswordError
             // 
+            this.examPasswordError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.examPasswordError.ContainerControl = this;
             // 
             // groupBox1
@@ -456,6 +428,7 @@
             this.question.Name = "question";
             this.question.Size = new System.Drawing.Size(279, 108);
             this.question.TabIndex = 1;
+            this.question.Leave += new System.EventHandler(this.question_leave);
             // 
             // choicesTab
             // 
@@ -524,6 +497,16 @@
             this.previewTab.Text = "Question Preview";
             this.previewTab.UseVisualStyleBackColor = true;
             // 
+            // previewQuestion
+            // 
+            this.previewQuestion.Enabled = false;
+            this.previewQuestion.Location = new System.Drawing.Point(3, 4);
+            this.previewQuestion.Multiline = true;
+            this.previewQuestion.Name = "previewQuestion";
+            this.previewQuestion.ReadOnly = true;
+            this.previewQuestion.Size = new System.Drawing.Size(287, 113);
+            this.previewQuestion.TabIndex = 0;
+            // 
             // editItemBtn
             // 
             this.editItemBtn.Location = new System.Drawing.Point(330, 106);
@@ -567,16 +550,6 @@
             this.deleteItem.UseVisualStyleBackColor = true;
             this.deleteItem.Click += new System.EventHandler(this.deleteItem_Click);
             // 
-            // previewQuestion
-            // 
-            this.previewQuestion.Enabled = false;
-            this.previewQuestion.Location = new System.Drawing.Point(3, 4);
-            this.previewQuestion.Multiline = true;
-            this.previewQuestion.Name = "previewQuestion";
-            this.previewQuestion.ReadOnly = true;
-            this.previewQuestion.Size = new System.Drawing.Size(287, 113);
-            this.previewQuestion.TabIndex = 0;
-            // 
             // ExamScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -591,7 +564,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.saveExamBtn);
             this.Controls.Add(this.resetBtn);
-            this.Controls.Add(this.printExamBtn);
             this.Controls.Add(this.previewExamBtn);
             this.Controls.Add(this.exportAnsKeyBtn);
             this.Controls.Add(this.exportExamBtn);
@@ -600,8 +572,6 @@
             this.Controls.Add(this.examDate);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.addItemBtn);
-            this.Controls.Add(this.viewByLbl);
-            this.Controls.Add(this.viewTypeDd);
             this.Controls.Add(this.totalQuestionsLbl);
             this.Controls.Add(this.examPassword);
             this.Controls.Add(this.label3);
@@ -640,8 +610,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox examPassword;
         private System.Windows.Forms.Label totalQuestionsLbl;
-        private System.Windows.Forms.ComboBox viewTypeDd;
-        private System.Windows.Forms.Label viewByLbl;
         private System.Windows.Forms.Button addItemBtn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker examDate;
@@ -650,7 +618,6 @@
         private System.Windows.Forms.Button exportExamBtn;
         private System.Windows.Forms.Button exportAnsKeyBtn;
         private System.Windows.Forms.Button previewExamBtn;
-        private System.Windows.Forms.Button printExamBtn;
         private System.Windows.Forms.Button saveExamBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label examPreparedBy;

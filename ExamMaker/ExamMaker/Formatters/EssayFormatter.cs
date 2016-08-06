@@ -57,6 +57,8 @@ namespace ExamMaker.Formatters
                 }
             }
 
+            InsertParagraphsAfter();
+
         }
 
         public string GetFormattedQuestion(ExamItem examItem)

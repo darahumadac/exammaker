@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamMaker.Tests", "ExamMake
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamMaker.Presenters", "ExamMaker.Presenters\ExamMaker.Presenters.csproj", "{1DA17E9A-B1CD-48F8-B47C-9D7D81BAA2A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamMaker.Utils", "ExamMaker.Utils\ExamMaker.Utils.csproj", "{92E0305E-C2D2-44C3-8E13-B0B793ED7E03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1DA17E9A-B1CD-48F8-B47C-9D7D81BAA2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA17E9A-B1CD-48F8-B47C-9D7D81BAA2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA17E9A-B1CD-48F8-B47C-9D7D81BAA2A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92E0305E-C2D2-44C3-8E13-B0B793ED7E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92E0305E-C2D2-44C3-8E13-B0B793ED7E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92E0305E-C2D2-44C3-8E13-B0B793ED7E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92E0305E-C2D2-44C3-8E13-B0B793ED7E03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,11 +25,6 @@ namespace ExamMaker.BusinessObjects
             _exporter = (Exporter)constructor.Invoke(contructorArgs);
         }
 
-        public void SaveExam(Exam exam)
-        {
-            throw new NotImplementedException();
-        }
-
         public void ExportAnswerKey()
         {
             string answerKeyFilePath = getExportFilePath("answerkey");

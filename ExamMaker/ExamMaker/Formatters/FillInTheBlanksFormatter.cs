@@ -33,6 +33,8 @@ namespace ExamMaker.Formatters
                 _examParagraph.Range.Text = question;
                 _examParagraph.Range.InsertParagraphAfter();
             }
+
+            InsertParagraphsAfter();
         }
 
         public string GetFormattedQuestion(ExamItem examItem)

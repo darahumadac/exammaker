@@ -8,7 +8,6 @@ namespace ExamMaker.Models.Models
 {
     public interface IExamManager
     {
-        void SaveExam(Exam exam);
         void ExportAnswerKey();
         void ExportExam();
     }

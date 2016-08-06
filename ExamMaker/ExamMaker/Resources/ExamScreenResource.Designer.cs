@@ -99,11 +99,65 @@ namespace ExamMaker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot Save Exam.
+        /// </summary>
+        internal static string saveExamErrorCaption {
+            get {
+                return ResourceManager.GetString("saveExamErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please correct the following errors:.
+        /// </summary>
+        internal static string saveExamErrorInstruction {
+            get {
+                return ResourceManager.GetString("saveExamErrorInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error encountered while saving your exam.  Please contact your administrator.
+        /// </summary>
+        internal static string saveExamErrorMsg {
+            get {
+                return ResourceManager.GetString("saveExamErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click &apos;Save Exam&apos; first to save exam item.
+        /// </summary>
+        internal static string saveExamFirstMsg {
+            get {
+                return ResourceManager.GetString("saveExamFirstMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to save your changes for Exam Item #{0}?.
         /// </summary>
         internal static string saveExamItemConfirm {
             get {
                 return ResourceManager.GetString("saveExamItemConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exam Saved.
+        /// </summary>
+        internal static string saveExamSuccessCaption {
+            get {
+                return ResourceManager.GetString("saveExamSuccessCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exam was successfully saved.
+        /// </summary>
+        internal static string saveExamSuccessMsg {
+            get {
+                return ResourceManager.GetString("saveExamSuccessMsg", resourceCulture);
             }
         }
     }

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Text;
 using System.Windows.Forms;
 using ExamMaker.BusinessObjects;
 using ExamMaker.Formatters;
 using ExamMaker.Models.Models;
 using ExamMaker.Models.Repositories;
 using ExamMaker.Presenters.Presenters;
+using ExamMaker.Utils;
 
 namespace ExamMaker.Views.Basic
 {
@@ -23,6 +26,7 @@ namespace ExamMaker.Views.Basic
         private readonly Repository<ExamItem> _examItemsRepository;
         private readonly Repository<Option> _optionRepository;
         private ResourceManager _resourceManager;
+        private ResourceManager _examModelResourceManager;
 
         private List<ExamItem> _examItems;
         private ExamItem _selectedExamItem;
@@ -52,6 +56,7 @@ namespace ExamMaker.Views.Basic
             _shouldValidateRow = false;
             _isCurrentRecordSaved = true;
 
+            _examModelResourceManager = new ResourceManager("ExamMaker.Models.ExamMakerResource", Assembly.GetExecutingAssembly());
             _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
             _examPresenter = new ExamPresenter(this);
             _examManager = new ExamManager(examRecord);
@@ -77,7 +82,7 @@ namespace ExamMaker.Views.Basic
             else
             {
                 faqImg.Image = Bitmap.FromHicon(System.Drawing.SystemIcons.Question.Handle);
-                saveItemTooltip.SetToolTip(faqImg, "Click 'Save Exam' first to save exam item");
+                saveItemTooltip.SetToolTip(faqImg, _resourceManager.GetString("saveExamFirstMsg"));
             }
 
             if (_hasExamItems)
@@ -109,7 +114,7 @@ namespace ExamMaker.Views.Basic
         private void loadExamInfo()
         {
             examName.Text = _examRecord.ExamName;
-            examTypeDd.SelectedItem = _examRecord.Type.ToString();
+            examTypeDd.SelectedIndex = (int)_examRecord.Type - 1;
             examDate.Value = _examRecord.ScheduledExamDate;
             examPassword.Text = _examRecord.ExamPassword;
 
@@ -404,12 +409,48 @@ namespace ExamMaker.Views.Basic
 
         private void saveExamBtn_Click(object sender, EventArgs e)
         {
-            _examRecord.ExamItems = _examItems;
+            ValidateChildren();
+            _examRecord.ExamName = examName.Text;
+            _examRecord.ExamPassword = examPassword.Text;
+            _examRecord.Type = (ExamType)examTypeDd.SelectedIndex + 1;
+            _examRecord.ScheduledExamDate = examDate.Value;
+            _examRecord.UserId = Program.LoggedInUser.UserId;
 
-            _examRepository.Update(_examRecord);
-            _examRepository.Save();
+            _examRecord.ExamItems = _examItems;
+            try
+            {
+                _examRepository.Update(_examRecord);
+                _examRepository.Save();
+
+                MessageBox.Show(_resourceManager.GetString("saveExamSuccessMsg"),
+                    _resourceManager.GetString("saveExamSuccessCaption"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder errorSb = new StringBuilder();
+                errorSb.AppendLine(_resourceManager.GetString("saveExamErrorInstruction"));
+
+                foreach (var error in ex.EntityValidationErrors.First().ValidationErrors)
+                {
+                    errorSb.AppendLine("- "+error.ErrorMessage);
+                }
+
+                MessageBox.Show(errorSb.ToString(),
+                    _resourceManager.GetString("saveExamErrorCaption"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TODO: Implement error logging
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(_resourceManager.GetString("saveExamErrorMsg"),
+                    _resourceManager.GetString("saveExamErrorCaption"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
 
             LoadAndSortExamItems();
+
         }
 
         private void itemTypeDd_selectedIndexChanged(object sender, EventArgs e)
@@ -420,6 +461,7 @@ namespace ExamMaker.Views.Basic
             {
                 answer.Text = string.Empty;
             }
+
             showOrHideChoicesTabForExamItem(examTypeIndex);
         }
 
@@ -477,12 +519,14 @@ namespace ExamMaker.Views.Basic
 
         private void addItemBtn_Click(object sender, EventArgs e)
         {
+            
             ExamItem newExamItem = new ExamItem()
             {
                 ItemNumber = _examItems.Count + 1,
-                ItemType = ItemType.FillInTheBlanks,
+                ItemType = _examItems.Last().ItemType,
                 Question = string.Empty,
-                Answer = string.Empty
+                Answer = string.Empty,
+                Options = new List<Option>()
             };
 
             _examItems.Add(newExamItem);
@@ -492,7 +536,7 @@ namespace ExamMaker.Views.Basic
             _examRepository.Save();
 
             LoadAndSortExamItems();
-            selectCurrentExamItem();
+            selectExamItem(_examItems.Count-1);
 
             
         }
@@ -570,6 +614,60 @@ namespace ExamMaker.Views.Basic
                 new AddChoiceScreen(currentOption, 
                     _selectedExamItem, _examItemsRepository, this, _optionRepository);
             addChoiceScreen.Show();
+        }
+       
+        private void examName_validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int examNameLength;
+            Int32.TryParse(ConfigurationManager.AppSettings["passwordAndNameFieldsMinLength"],
+                out examNameLength);
+
+            if (InputValidator.IsEmpty(examName.Text) ||
+                InputValidator.IsLengthTooShort(examName.Text, examNameLength))
+            {
+                examNameError.SetError(examName, "Exam Name must be 6 - 60 characters long");
+                //TODO: Get error from resource file
+                //examNameError.SetError(examName, _examModelResourceManager.GetString("examNameLengthError"));
+                e.Cancel = true;
+            }
+            else
+            {
+                examNameError.Clear();
+            }
+            
+        }
+
+        private void examPassword_validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int passwordLength;
+            Int32.TryParse(ConfigurationManager.AppSettings["passwordAndNameFieldsMinLength"],
+                out passwordLength);
+
+            if (InputValidator.IsEmpty(examPassword.Text) ||
+                InputValidator.IsLengthTooShort(examPassword.Text, passwordLength))
+            {
+                examPasswordError.SetError(examPassword, "Exam Password must be 6 - 16 characters long");
+                //TODO: Get error from resource file
+                //examNameError.SetError(examName, _examModelResourceManager.GetString("examPasswordError"));
+                e.Cancel = true;
+            }
+            else
+            {
+                examPasswordError.Clear();
+            }
+
+
+        }
+
+        private void question_leave(object sender, EventArgs e)
+        {
+            setExamItemPreview();
+        }
+
+        private void setExamItemPreview()
+        {
+            _selectedExamItem.Question = question.Text;
+            previewQuestion.Text = QuestionFormatter.GetFormattedQuestion(_selectedExamItem);
         }
 
     }

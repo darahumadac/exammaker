@@ -113,7 +113,6 @@ namespace ExamMaker.BusinessObjects
             foreach (ItemTypeFormatter itemTypeFormatter in formatters)
             {
                 itemTypeFormatter.FormatAndWriteQuestions(_exam.ExamItems);
-                insertParagraph(2, examItemParagraph);
             }
 
             saveAndCloseDocument(examDocument, filePath, msWordApp);

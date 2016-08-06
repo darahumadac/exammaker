@@ -23,14 +23,28 @@ namespace ExamMaker.Models.Models
         {
         }
 
-        public virtual void FormatAndWriteQuestions( List<ExamItem> examItems)
+        public virtual void FormatAndWriteQuestions(List<ExamItem> examItems)
         {
             _itemTypeExamItemsFiltered = examItems.FindAll(i => i.ItemType == _itemType);
-            string instructions = ConfigurationManager.AppSettings[_appSettingKeyInstruction];
 
-            _examParagraph.Range.Text = instructions;
-            _examParagraph.Range.InsertParagraphAfter();
-            _examParagraph.Range.InsertParagraphAfter();
+            if (_itemTypeExamItemsFiltered.Count > 0)
+            {
+                string instructions = ConfigurationManager.AppSettings[_appSettingKeyInstruction];
+
+                _examParagraph.Range.Text = instructions;
+                _examParagraph.Range.InsertParagraphAfter();
+                _examParagraph.Range.InsertParagraphAfter();
+            }
+            
+        }
+
+        public void InsertParagraphsAfter()
+        {
+            if (_itemTypeExamItemsFiltered.Count > 0)
+            {
+                _examParagraph.Range.InsertParagraphAfter();
+                _examParagraph.Range.InsertParagraphAfter();
+            }
             
         }
 

@@ -180,6 +180,10 @@
       <Project>{1DA17E9A-B1CD-48F8-B47C-9D7D81BAA2A7}</Project>
       <Name>ExamMaker.Presenters</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExamMaker.Utils\ExamMaker.Utils.csproj">
+      <Project>{92e0305e-c2d2-44c3-8e13-b0b793ed7e03}</Project>
+      <Name>ExamMaker.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\Microsoft.Office.Interop.Word.dll" />
