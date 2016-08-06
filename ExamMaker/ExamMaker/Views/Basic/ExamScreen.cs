@@ -56,10 +56,12 @@ namespace ExamMaker.Views.Basic
                 ScheduledExamDate = DateTime.Now,
                 UserId = Program.LoggedInUser.UserId
             };
+            
 
 
             _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
             _examPresenter = new ExamPresenter(this);
+            _examManager = new ExamManager(_examRecord);
 
             SetUIDefaults();
             InitializeUI();
