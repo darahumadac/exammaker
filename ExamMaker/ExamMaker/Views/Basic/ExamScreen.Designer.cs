@@ -74,6 +74,7 @@
             this.saveItemTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.label8 = new System.Windows.Forms.Label();
             this.deleteItem = new System.Windows.Forms.Button();
+            this.examItemsEditLockMsg = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.examItemsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examNameError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.examPasswordError)).BeginInit();
@@ -103,13 +104,12 @@
             this.examItemsGrid.TabIndex = 0;
             this.examItemsGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.examItemsGrid_rowAdded);
             this.examItemsGrid.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.examItemsGrid_rowRemoved);
-            this.examItemsGrid.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.examItemsGrid_rowValidating);
             this.examItemsGrid.SelectionChanged += new System.EventHandler(this.examItemsGrid_selectionChanged);
             // 
             // examQuestionsListLbl
             // 
             this.examQuestionsListLbl.AutoSize = true;
-            this.examQuestionsListLbl.Location = new System.Drawing.Point(12, 112);
+            this.examQuestionsListLbl.Location = new System.Drawing.Point(12, 117);
             this.examQuestionsListLbl.Name = "examQuestionsListLbl";
             this.examQuestionsListLbl.Size = new System.Drawing.Size(59, 13);
             this.examQuestionsListLbl.TabIndex = 1;
@@ -144,7 +144,7 @@
             // totalQuestionsLbl
             // 
             this.totalQuestionsLbl.AutoSize = true;
-            this.totalQuestionsLbl.Location = new System.Drawing.Point(82, 112);
+            this.totalQuestionsLbl.Location = new System.Drawing.Point(82, 117);
             this.totalQuestionsLbl.Name = "totalQuestionsLbl";
             this.totalQuestionsLbl.Size = new System.Drawing.Size(40, 13);
             this.totalQuestionsLbl.TabIndex = 8;
@@ -152,7 +152,7 @@
             // 
             // addItemBtn
             // 
-            this.addItemBtn.Location = new System.Drawing.Point(242, 107);
+            this.addItemBtn.Location = new System.Drawing.Point(242, 112);
             this.addItemBtn.Name = "addItemBtn";
             this.addItemBtn.Size = new System.Drawing.Size(82, 23);
             this.addItemBtn.TabIndex = 11;
@@ -345,6 +345,7 @@
             // 
             // itemTypeDd
             // 
+            this.itemTypeDd.CausesValidation = false;
             this.itemTypeDd.Enabled = false;
             this.itemTypeDd.FormattingEnabled = true;
             this.itemTypeDd.Items.AddRange(new object[] {
@@ -408,6 +409,7 @@
             this.examQuestionDetails.SelectedIndex = 0;
             this.examQuestionDetails.Size = new System.Drawing.Size(301, 146);
             this.examQuestionDetails.TabIndex = 33;
+            this.examQuestionDetails.Selected += new System.Windows.Forms.TabControlEventHandler(this.examQuestionDetails_selected);
             // 
             // questionTab
             // 
@@ -428,7 +430,7 @@
             this.question.Name = "question";
             this.question.Size = new System.Drawing.Size(279, 108);
             this.question.TabIndex = 1;
-            this.question.Leave += new System.EventHandler(this.question_leave);
+            this.question.TextChanged += new System.EventHandler(this.question_textChanged);
             // 
             // choicesTab
             // 
@@ -499,7 +501,6 @@
             // 
             // previewQuestion
             // 
-            this.previewQuestion.Enabled = false;
             this.previewQuestion.Location = new System.Drawing.Point(3, 4);
             this.previewQuestion.Multiline = true;
             this.previewQuestion.Name = "previewQuestion";
@@ -509,7 +510,7 @@
             // 
             // editItemBtn
             // 
-            this.editItemBtn.Location = new System.Drawing.Point(330, 106);
+            this.editItemBtn.Location = new System.Drawing.Point(330, 111);
             this.editItemBtn.Name = "editItemBtn";
             this.editItemBtn.Size = new System.Drawing.Size(82, 24);
             this.editItemBtn.TabIndex = 45;
@@ -550,12 +551,24 @@
             this.deleteItem.UseVisualStyleBackColor = true;
             this.deleteItem.Click += new System.EventHandler(this.deleteItem_Click);
             // 
+            // examItemsEditLockMsg
+            // 
+            this.examItemsEditLockMsg.AutoSize = true;
+            this.examItemsEditLockMsg.ForeColor = System.Drawing.Color.Red;
+            this.examItemsEditLockMsg.Location = new System.Drawing.Point(53, 87);
+            this.examItemsEditLockMsg.Name = "examItemsEditLockMsg";
+            this.examItemsEditLockMsg.Size = new System.Drawing.Size(314, 13);
+            this.examItemsEditLockMsg.TabIndex = 47;
+            this.examItemsEditLockMsg.Text = "*** Exam items is locked for editing.  Please save changes first ***";
+            this.examItemsEditLockMsg.Visible = false;
+            // 
             // ExamScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.ClientSize = new System.Drawing.Size(765, 509);
+            this.Controls.Add(this.examItemsEditLockMsg);
             this.Controls.Add(this.deleteItem);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBox1);
@@ -650,5 +663,6 @@
         private System.Windows.Forms.Button deleteChoice;
         private System.Windows.Forms.Button editChoice;
         private System.Windows.Forms.TextBox previewQuestion;
+        private System.Windows.Forms.Label examItemsEditLockMsg;
     }
 }

@@ -443,6 +443,9 @@ namespace ExamMaker.Views.Basic
             editChoice.Enabled = isEnabled;
             previewTab.Enabled = isEnabled;
             answerBox.Enabled = isEnabled;
+
+            examItemsGrid.Enabled = !isEnabled;
+            examItemsEditLockMsg.Visible = isEnabled;
         }
 
         private void saveExamBtn_Click(object sender, EventArgs e)
@@ -509,35 +512,18 @@ namespace ExamMaker.Views.Basic
         private void itemTypeDd_selectedIndexChanged(object sender, EventArgs e)
         {
             int examTypeIndex = ((ComboBox) sender).SelectedIndex + 1;
-            if (_selectedExamItem.ItemType != ItemType.MultipleChoice 
-                && (ItemType)examTypeIndex == ItemType.MultipleChoice)
+            if (_selectedExamItem.ItemType != ItemType.MultipleChoice
+                && (ItemType) examTypeIndex == ItemType.MultipleChoice)
             {
                 answer.Text = string.Empty;
             }
+     
+            _selectedExamItem.ItemType = (ItemType)examTypeIndex;
+            previewQuestion.Text = QuestionFormatter.GetFormattedQuestion(_selectedExamItem);
 
             showOrHideChoicesTabForExamItem(examTypeIndex);
         }
 
-        private void examItemsGrid_rowValidating(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            if (_selectedExamItem != null && _shouldValidateRow && !_isCurrentRecordSaved)
-            {
-                DialogResult result = MessageBox.Show(
-                String.Format(_resourceManager.GetString("saveExamItemConfirm"),
-                    _selectedExamItem.ItemNumber),
-                string.Empty, MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.Yes)
-                {
-                    e.Cancel = true;
-                }
-                else
-                {
-                    allowEditOfExamItem(false);
-                }
-            }
-            
-        }
 
         private void editItemBtn_Click(object sender, EventArgs e)
         {
@@ -774,16 +760,23 @@ namespace ExamMaker.Views.Basic
 
         }
 
-        private void question_leave(object sender, EventArgs e)
-        {
-            setExamItemPreview();
-        }
-
         private void setExamItemPreview()
         {
             _selectedExamItem.Question = question.Text;
             previewQuestion.Text = QuestionFormatter.GetFormattedQuestion(_selectedExamItem);
         }
 
+        private void question_textChanged(object sender, EventArgs e)
+        {
+            _selectedExamItem.Question = question.Text;
+        }
+
+        private void examQuestionDetails_selected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPageIndex == 1)
+            {
+                setExamItemPreview();
+            }
+        }
     }
 }
