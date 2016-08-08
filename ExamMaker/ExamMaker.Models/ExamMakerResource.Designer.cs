@@ -22,7 +22,7 @@ namespace ExamMaker.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ExamMakerResource {
+    public class ExamMakerResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ExamMaker.Models {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ExamMaker.Models.ExamMakerResource", typeof(ExamMakerResource).Assembly);
@@ -51,7 +51,7 @@ namespace ExamMaker.Models {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ExamMaker.Models {
         /// <summary>
         ///   Looks up a localized string similar to Exam Name must be 6 - 60 characters long.
         /// </summary>
-        internal static string examNameLengthError {
+        public static string examNameLengthError {
             get {
                 return ResourceManager.GetString("examNameLengthError", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ExamMaker.Models {
         /// <summary>
         ///   Looks up a localized string similar to Exam Name is required.
         /// </summary>
-        internal static string examNameRequired {
+        public static string examNameRequired {
             get {
                 return ResourceManager.GetString("examNameRequired", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ExamMaker.Models {
         /// <summary>
         ///   Looks up a localized string similar to Exam Password must be 6 - 16 characters long.
         /// </summary>
-        internal static string examPasswordError {
+        public static string examPasswordError {
             get {
                 return ResourceManager.GetString("examPasswordError", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ExamMaker.Models {
         /// <summary>
         ///   Looks up a localized string similar to Scheduled Exam Date is required.
         /// </summary>
-        internal static string scheduledExamDateRequired {
+        public static string scheduledExamDateRequired {
             get {
                 return ResourceManager.GetString("scheduledExamDateRequired", resourceCulture);
             }

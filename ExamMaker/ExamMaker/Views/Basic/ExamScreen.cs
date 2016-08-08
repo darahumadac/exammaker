@@ -56,9 +56,9 @@ namespace ExamMaker.Views.Basic
                 ScheduledExamDate = DateTime.Now,
                 UserId = Program.LoggedInUser.UserId
             };
-            
 
-
+            Assembly modelResourceAssembly = Assembly.Load("ExamMaker.Models");
+            _examModelResourceManager = new ResourceManager("ExamMaker.Models.ExamMakerResource", modelResourceAssembly);
             _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
             _examPresenter = new ExamPresenter(this);
             _examManager = new ExamManager(_examRecord);
@@ -82,7 +82,8 @@ namespace ExamMaker.Views.Basic
             _shouldValidateRow = false;
             _isCurrentRecordSaved = true;
 
-            _examModelResourceManager = new ResourceManager("ExamMaker.Models.ExamMakerResource", Assembly.GetExecutingAssembly());
+            Assembly modelResourceAssembly = Assembly.Load("ExamMaker.Models");
+            _examModelResourceManager = new ResourceManager("ExamMaker.Models.ExamMakerResource", modelResourceAssembly);
             _resourceManager = new ResourceManager("ExamMaker.Resources.ExamScreenResource", Assembly.GetExecutingAssembly());
             _examPresenter = new ExamPresenter(this);
             _examManager = new ExamManager(examRecord);
@@ -153,9 +154,10 @@ namespace ExamMaker.Views.Basic
         {
             _hasSelectedRow = false;
 
+            LoadAndSortExamItems();
+
             if (_hasExamItems)
             {
-                LoadAndSortExamItems();
                 selectExamItem(0);
             }
         }
@@ -465,12 +467,13 @@ namespace ExamMaker.Views.Basic
 
                 foreach (var error in ex.EntityValidationErrors.First().ValidationErrors)
                 {
-                    errorSb.AppendLine("- "+error.ErrorMessage);
+                    errorSb.AppendLine("- " + error.ErrorMessage);
                 }
 
                 MessageBox.Show(errorSb.ToString(),
                     _resourceManager.GetString("saveExamErrorCaption"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 //TODO: Implement error logging
             }
             catch (Exception ex)
@@ -480,7 +483,6 @@ namespace ExamMaker.Views.Basic
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
-
             LoadAndSortExamItems();
 
         }
@@ -728,9 +730,7 @@ namespace ExamMaker.Views.Basic
             if (InputValidator.IsEmpty(examName.Text) ||
                 InputValidator.IsLengthTooShort(examName.Text, examNameLength))
             {
-                examNameError.SetError(examName, "Exam Name must be 6 - 60 characters long");
-                //TODO: Get error from resource file
-                //examNameError.SetError(examName, _examModelResourceManager.GetString("examNameLengthError"));
+                examNameError.SetError(examName, _examModelResourceManager.GetString("examNameLengthError"));
                 e.Cancel = true;
             }
             else
@@ -749,9 +749,8 @@ namespace ExamMaker.Views.Basic
             if (InputValidator.IsEmpty(examPassword.Text) ||
                 InputValidator.IsLengthTooShort(examPassword.Text, passwordLength))
             {
-                examPasswordError.SetError(examPassword, "Exam Password must be 6 - 16 characters long");
-                //TODO: Get error from resource file
-                //examNameError.SetError(examName, _examModelResourceManager.GetString("examPasswordError"));
+                examPasswordError.SetError(examPassword, 
+                    _examModelResourceManager.GetString("examPasswordError"));
                 e.Cancel = true;
             }
             else

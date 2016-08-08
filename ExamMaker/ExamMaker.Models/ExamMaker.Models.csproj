@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ExamMakerResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ExamMakerResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607151342493_Initial_ExamMaker_DB.resx">
