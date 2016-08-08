@@ -672,10 +672,12 @@ namespace ExamMaker.Views.Basic
 
         private void adjustOrderOfItemsAfterRemovedIndex(int removedIndex)
         {
-            for (int i = removedIndex; i < _examItems.Count; i++)
+            ExamItem examItemToReorder;
+            for (int i = removedIndex + 1; i <= _examItems.Count; i++)
             {
-                _examItems[i].ItemNumber = i;
-                _examItemsRepository.Update(_examItems[i]);
+                examItemToReorder = _examItems.First(e => e.ItemNumber == i);
+                examItemToReorder.ItemNumber = i - 1;
+                _examItemsRepository.Update(examItemToReorder);
             }
 
             _examItemsRepository.Save();
