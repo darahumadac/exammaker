@@ -28,63 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuScreen));
             this.createNewExamBtn = new System.Windows.Forms.Button();
             this.viewOrEditExamBtn = new System.Windows.Forms.Button();
-            this.questionBank = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.welcomeLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // createNewExamBtn
             // 
-            this.createNewExamBtn.Location = new System.Drawing.Point(13, 29);
+            this.createNewExamBtn.Image = ((System.Drawing.Image)(resources.GetObject("createNewExamBtn.Image")));
+            this.createNewExamBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.createNewExamBtn.Location = new System.Drawing.Point(13, 53);
             this.createNewExamBtn.Name = "createNewExamBtn";
-            this.createNewExamBtn.Size = new System.Drawing.Size(151, 34);
+            this.createNewExamBtn.Size = new System.Drawing.Size(133, 43);
             this.createNewExamBtn.TabIndex = 0;
             this.createNewExamBtn.Text = "Create New Exam";
+            this.createNewExamBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.createNewExamBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.createNewExamBtn.UseVisualStyleBackColor = true;
             this.createNewExamBtn.Click += new System.EventHandler(this.createNewExamBtn_Click);
             // 
             // viewOrEditExamBtn
             // 
-            this.viewOrEditExamBtn.Location = new System.Drawing.Point(13, 69);
+            this.viewOrEditExamBtn.Image = ((System.Drawing.Image)(resources.GetObject("viewOrEditExamBtn.Image")));
+            this.viewOrEditExamBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.viewOrEditExamBtn.Location = new System.Drawing.Point(181, 53);
             this.viewOrEditExamBtn.Name = "viewOrEditExamBtn";
-            this.viewOrEditExamBtn.Size = new System.Drawing.Size(151, 34);
+            this.viewOrEditExamBtn.Size = new System.Drawing.Size(133, 43);
             this.viewOrEditExamBtn.TabIndex = 1;
-            this.viewOrEditExamBtn.Text = "View / Edit / Delete Exam";
+            this.viewOrEditExamBtn.Text = "View/Edit Exam";
+            this.viewOrEditExamBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.viewOrEditExamBtn.UseVisualStyleBackColor = true;
             this.viewOrEditExamBtn.Click += new System.EventHandler(this.viewOrEditExamBtn_Click);
             // 
-            // questionBank
+            // welcomeLbl
             // 
-            this.questionBank.Location = new System.Drawing.Point(12, 109);
-            this.questionBank.Name = "questionBank";
-            this.questionBank.Size = new System.Drawing.Size(151, 34);
-            this.questionBank.TabIndex = 2;
-            this.questionBank.Text = "Question Bank";
-            this.questionBank.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 149);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(151, 34);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "View / Edit Questions";
-            this.button1.UseVisualStyleBackColor = true;
+            this.welcomeLbl.AutoSize = true;
+            this.welcomeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.welcomeLbl.Location = new System.Drawing.Point(12, 19);
+            this.welcomeLbl.Name = "welcomeLbl";
+            this.welcomeLbl.Size = new System.Drawing.Size(72, 13);
+            this.welcomeLbl.TabIndex = 2;
+            this.welcomeLbl.Text = "Welcome, {0}";
             // 
             // MainMenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 364);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.questionBank);
+            this.ClientSize = new System.Drawing.Size(329, 163);
+            this.Controls.Add(this.welcomeLbl);
             this.Controls.Add(this.viewOrEditExamBtn);
             this.Controls.Add(this.createNewExamBtn);
             this.Name = "MainMenuScreen";
             this.Text = "Exam Maker Main Menu";
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -92,8 +91,7 @@
 
         private System.Windows.Forms.Button createNewExamBtn;
         private System.Windows.Forms.Button viewOrEditExamBtn;
-        private System.Windows.Forms.Button questionBank;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label welcomeLbl;
     }
 }
 

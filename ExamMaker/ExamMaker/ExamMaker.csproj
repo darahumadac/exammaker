@@ -195,6 +195,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\edit.png" />
+    <Content Include="img\passed-exam %282%29.png" />
+    <Content Include="img\pencil-edit.png" />
     <Content Include="lib\Microsoft.Office.Interop.Word.dll" />
     <Content Include="lib\PdfSharp.dll" />
   </ItemGroup>

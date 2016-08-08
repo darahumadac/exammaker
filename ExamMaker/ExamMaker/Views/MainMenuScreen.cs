@@ -23,7 +23,7 @@ namespace ExamMaker.Views
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-
+            welcomeLbl.Text = String.Format("Welcome, {0}", Program.LoggedInUser.Username);
         }
 
         private void createNewExamBtn_Click(object sender, EventArgs e)
