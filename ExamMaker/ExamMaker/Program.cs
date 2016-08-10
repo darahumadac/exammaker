@@ -13,8 +13,6 @@ namespace ExamMaker
     {
         private static IAppDataSource datasource = new SqlRepository();
         private static AppRepository appRepository = new AppRepository(datasource);
-        //TODO: Add login screen
-        //TODO: Add manage user feature
         public static User LoggedInUser;
         
         /// <summary>
