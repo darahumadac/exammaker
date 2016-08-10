@@ -88,6 +88,12 @@
     <Compile Include="Views\Basic\AddChoiceScreen.Designer.cs">
       <DependentUpon>AddChoiceScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Basic\ConfirmPasswordScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Basic\ConfirmPasswordScreen.Designer.cs">
+      <DependentUpon>ConfirmPasswordScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Basic\EnterPasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Basic\AddChoiceScreen.resx">
       <DependentUpon>AddChoiceScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Basic\ConfirmPasswordScreen.resx">
+      <DependentUpon>ConfirmPasswordScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Basic\EnterPasswordForm.resx">
       <DependentUpon>EnterPasswordForm.cs</DependentUpon>

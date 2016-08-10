@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,9 @@ namespace ExamMaker.BusinessObjects
 
         public User Authenticate(string username, string password)
         {
-            User user = _userRepository.GetAll().Find(u => u.Username.Equals(username) && u.Password.Equals(password));
+            User user = _userRepository.GetAll()
+                .Find(u => u.Username.Equals(username) && u.Password.Equals(password) && u.IsActive
+                && !u.Password.Equals(ConfigurationManager.AppSettings["defaultPw"]));
 
             if (user != null)
             {

@@ -30,8 +30,11 @@
         {
             this.userListGridView = new System.Windows.Forms.DataGridView();
             this.addUserBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
+            this.changePwBtn = new System.Windows.Forms.Button();
+            this.usernameSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.searchBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.userListGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,14 +48,16 @@
             this.userListGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.userListGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.userListGridView.Location = new System.Drawing.Point(12, 64);
+            this.userListGridView.MultiSelect = false;
             this.userListGridView.Name = "userListGridView";
-            this.userListGridView.Size = new System.Drawing.Size(301, 195);
+            this.userListGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.userListGridView.Size = new System.Drawing.Size(361, 195);
             this.userListGridView.TabIndex = 0;
             // 
             // addUserBtn
             // 
             this.addUserBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addUserBtn.Location = new System.Drawing.Point(237, 35);
+            this.addUserBtn.Location = new System.Drawing.Point(297, 35);
             this.addUserBtn.Name = "addUserBtn";
             this.addUserBtn.Size = new System.Drawing.Size(75, 23);
             this.addUserBtn.TabIndex = 1;
@@ -60,19 +65,10 @@
             this.addUserBtn.UseVisualStyleBackColor = true;
             this.addUserBtn.Click += new System.EventHandler(this.addUserBtn_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 35);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Delete User";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // saveBtn
             // 
             this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveBtn.Location = new System.Drawing.Point(237, 275);
+            this.saveBtn.Location = new System.Drawing.Point(297, 275);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(75, 23);
             this.saveBtn.TabIndex = 3;
@@ -80,13 +76,53 @@
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
+            // changePwBtn
+            // 
+            this.changePwBtn.Location = new System.Drawing.Point(12, 275);
+            this.changePwBtn.Name = "changePwBtn";
+            this.changePwBtn.Size = new System.Drawing.Size(107, 23);
+            this.changePwBtn.TabIndex = 4;
+            this.changePwBtn.Text = "Change Password";
+            this.changePwBtn.UseVisualStyleBackColor = true;
+            this.changePwBtn.Click += new System.EventHandler(this.changePwBtn_Click);
+            // 
+            // usernameSearch
+            // 
+            this.usernameSearch.Location = new System.Drawing.Point(65, 35);
+            this.usernameSearch.Name = "usernameSearch";
+            this.usernameSearch.Size = new System.Drawing.Size(111, 20);
+            this.usernameSearch.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Find User";
+            // 
+            // searchBtn
+            // 
+            this.searchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBtn.Location = new System.Drawing.Point(182, 33);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(54, 23);
+            this.searchBtn.TabIndex = 7;
+            this.searchBtn.Text = "Search";
+            this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
             // ManageUserScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 310);
+            this.ClientSize = new System.Drawing.Size(385, 310);
+            this.Controls.Add(this.searchBtn);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.usernameSearch);
+            this.Controls.Add(this.changePwBtn);
             this.Controls.Add(this.saveBtn);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.addUserBtn);
             this.Controls.Add(this.userListGridView);
             this.Name = "ManageUserScreen";
@@ -94,6 +130,7 @@
             this.Load += new System.EventHandler(this.ManageUserScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.userListGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -101,7 +138,10 @@
 
         private System.Windows.Forms.DataGridView userListGridView;
         private System.Windows.Forms.Button addUserBtn;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button saveBtn;
+        private System.Windows.Forms.Button changePwBtn;
+        private System.Windows.Forms.TextBox usernameSearch;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button searchBtn;
     }
 }

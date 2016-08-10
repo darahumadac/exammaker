@@ -84,6 +84,10 @@
     <Compile Include="Migrations\201608091017296_AddedRoleToUser.Designer.cs">
       <DependentUpon>201608091017296_AddedRoleToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608101116371_AddedIsActiveToUser.cs" />
+    <Compile Include="Migrations\201608101116371_AddedIsActiveToUser.Designer.cs">
+      <DependentUpon>201608101116371_AddedIsActiveToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DateRangeAttribute.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\ExamItem.cs" />
@@ -148,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608091017296_AddedRoleToUser.resx">
       <DependentUpon>201608091017296_AddedRoleToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101116371_AddedIsActiveToUser.resx">
+      <DependentUpon>201608101116371_AddedIsActiveToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

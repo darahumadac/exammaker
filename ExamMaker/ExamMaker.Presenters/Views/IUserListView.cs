@@ -10,5 +10,6 @@ namespace ExamMaker.Presenters.Views
     {
         void LoadAllRecords();
         void Show();
+        void Save();
     }
 }

@@ -12,6 +12,8 @@ namespace ExamMaker.Models.Models
         public string Password { get; set; }
         [DisplayName("Administrator?")]
         public bool IsAdmin { get; set; }
+        [DisplayName("Active?")]
+        public bool IsActive { get; set; }
         public virtual List<Exam> Exams { get; set; } 
 
         public User()
