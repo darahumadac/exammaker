@@ -50,7 +50,9 @@ namespace ExamMaker.Views.Basic
             _examRecord = new Exam()
             {
                 ExamItems = _examItems,
-                ExamName = "New Exam " + (_examRepository.GetAll().Count + 1),
+                ExamName = "New Exam " + (_examRepository.GetAll()
+                .FindAll(e => e.UserId == Program.LoggedInUser.UserId)
+                .Count + 1),
                 ExamPassword = Program.LoggedInUser.Password,
                 Type = ExamType.Quiz,
                 ScheduledExamDate = DateTime.Now,

@@ -25,6 +25,8 @@ namespace ExamMaker.Views.Basic
         public EnterPasswordForm(string examPassword, IExamView examView)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
+
             _examPassword = examPassword;
             _examView = examView;
         }
@@ -32,6 +34,7 @@ namespace ExamMaker.Views.Basic
         public EnterPasswordForm(string examPassword, Repository<Exam> examRepository, Exam examRecord, ExamListPresenter examListPresenter)
         {
             InitializeComponent();
+
             _examPassword = examPassword;
             _examRepository = examRepository;
             _examRecord = examRecord;

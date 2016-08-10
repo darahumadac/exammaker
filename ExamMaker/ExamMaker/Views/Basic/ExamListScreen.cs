@@ -26,6 +26,7 @@ namespace ExamMaker.Views.Basic
             Repository<ExamItem> examItemsRepository, Repository<Option> optionRepository)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
 
             _examRepository = examRepository;
             _examItemsRepository = examItemsRepository;
@@ -45,7 +46,9 @@ namespace ExamMaker.Views.Basic
 
         public void LoadAllRecords()
         {
-            IEnumerable<Exam> examRecords = _examRepository.GetAll().OrderBy(e => e.ScheduledExamDate);
+            IEnumerable<Exam> examRecords = _examRepository.GetAll()
+                .FindAll(e => e.UserId == Program.LoggedInUser.UserId)
+                .OrderBy(e => e.ScheduledExamDate);
 
             examListGrid.DataSource = examRecords.ToList();
 

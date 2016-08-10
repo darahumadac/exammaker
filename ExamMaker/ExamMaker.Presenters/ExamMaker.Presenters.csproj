@@ -41,9 +41,11 @@
   <ItemGroup>
     <Compile Include="Presenters\ExamListPresenter.cs" />
     <Compile Include="Presenters\ExamPresenter.cs" />
+    <Compile Include="Presenters\UserListPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\IExamListView.cs" />
     <Compile Include="Views\IExamView.cs" />
+    <Compile Include="Views\IUserListView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

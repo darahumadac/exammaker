@@ -13,8 +13,9 @@ namespace ExamMaker
     {
         private static IAppDataSource datasource = new SqlRepository();
         private static AppRepository appRepository = new AppRepository(datasource);
-
-        public static User LoggedInUser = appRepository.UserRepository.GetAll().First();
+        //TODO: Add login screen
+        //TODO: Add manage user feature
+        public static User LoggedInUser;
         
         /// <summary>
         /// The main entry point for the application.
@@ -24,7 +25,7 @@ namespace ExamMaker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenuScreen(appRepository));
+            Application.Run(new LoginScreen(appRepository));
         }
     }
 }

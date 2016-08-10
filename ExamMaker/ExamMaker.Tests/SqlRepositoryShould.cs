@@ -30,7 +30,7 @@ namespace ExamMaker.Tests
 
         private User addTestUser(string username, string password)
         {
-            User newUser = new User(username, password);
+            User newUser = new User(username, password, false);
             _dbContext.Users.Add(newUser);
             _dbContext.SaveChanges();
 
@@ -60,7 +60,7 @@ namespace ExamMaker.Tests
         public void Add_New_Users()
         {
             deleteAllUsers();
-            User newUser = new User("add_new_user_1", "add_new_user_pwd_1");
+            User newUser = new User("add_new_user_1", "add_new_user_pwd_1", false);
 
             _appRepository.UserRepository.Add(newUser);
             _appRepository.Save();

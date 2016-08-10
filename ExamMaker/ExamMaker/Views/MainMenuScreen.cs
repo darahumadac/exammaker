@@ -13,12 +13,21 @@ namespace ExamMaker.Views
     public partial class MainMenuScreen : Form
     {
         private AppRepository _appRepository;
-       
+        private readonly LoginScreen _loginScreen;
 
-        public MainMenuScreen(AppRepository appRepository)
+
+        public MainMenuScreen(AppRepository appRepository, LoginScreen loginScreen)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
+
             _appRepository = appRepository;
+            _loginScreen = loginScreen;
+
+            if (Program.LoggedInUser.IsAdmin)
+            {
+                manageUserBtn.Visible = true;
+            }
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
@@ -38,6 +47,17 @@ namespace ExamMaker.Views
             IExamListView examListScreen = new ExamListScreen(_appRepository.ExamRepository, 
                 _appRepository.ExamItemRepository, _appRepository.OptionRepository);
             examListScreen.Show();
+        }
+
+        private void MainMenu_Closed(object sender, FormClosedEventArgs e)
+        {
+            _loginScreen.Show();
+        }
+
+        private void manageUserBtn_Click(object sender, EventArgs e)
+        {
+            IUserListView manageUserListScreen = new ManageUserScreen(_appRepository.UserRepository);
+            manageUserListScreen.Show();
         }
     }
 }

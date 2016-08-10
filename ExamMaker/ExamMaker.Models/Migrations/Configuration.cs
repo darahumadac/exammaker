@@ -18,7 +18,7 @@ namespace ExamMaker.Models.Migrations
 
         protected override void Seed(ExamMakerDbContext context)
         {
-            context.Users.AddOrUpdate(u => u.UserId, new User("User1", "User123"));
+            context.Users.AddOrUpdate(u => u.UserId, new User("User1", "User123", false));
 
             context.Exams.AddOrUpdate(e => e.ExamId, new Exam()
             {

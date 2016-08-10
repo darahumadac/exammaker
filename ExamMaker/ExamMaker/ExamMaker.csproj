@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\ExamManager.cs" />
+    <Compile Include="BusinessObjects\LoginManager.cs" />
     <Compile Include="BusinessObjects\MsWordExporter.cs" />
     <Compile Include="BusinessObjects\PdfExporter.cs" />
     <Compile Include="Formatters\EssayFormatter.cs" />
@@ -105,6 +106,18 @@
     <Compile Include="Views\Basic\ExamScreen.Designer.cs">
       <DependentUpon>ExamScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Basic\ManageUserScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Basic\ManageUserScreen.Designer.cs">
+      <DependentUpon>ManageUserScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\LoginScreen.Designer.cs">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Premium\ExamScreenWithQuestionBank.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +157,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Basic\ExamScreen.resx">
       <DependentUpon>ExamScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Basic\ManageUserScreen.resx">
+      <DependentUpon>ManageUserScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LoginScreen.resx">
+      <DependentUpon>LoginScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Premium\ExamScreenWithQuestionBank.resx">
       <DependentUpon>ExamScreenWithQuestionBank.cs</DependentUpon>
@@ -198,6 +217,7 @@
     <Content Include="img\edit.png" />
     <Content Include="img\passed-exam %282%29.png" />
     <Content Include="img\pencil-edit.png" />
+    <Content Include="img\user.png" />
     <Content Include="lib\Microsoft.Office.Interop.Word.dll" />
     <Content Include="lib\PdfSharp.dll" />
   </ItemGroup>

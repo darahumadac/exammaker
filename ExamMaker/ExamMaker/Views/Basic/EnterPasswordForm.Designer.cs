@@ -84,7 +84,7 @@
             this.Controls.Add(this.examPassword);
             this.Controls.Add(this.label1);
             this.Name = "EnterPasswordForm";
-            this.Text = "Enter Exam Password";
+            this.Text = "Exam Password";
             this.ResumeLayout(false);
             this.PerformLayout();
 
