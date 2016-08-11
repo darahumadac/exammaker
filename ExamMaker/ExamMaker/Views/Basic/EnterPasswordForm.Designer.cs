@@ -32,12 +32,13 @@
             this.examPassword = new System.Windows.Forms.MaskedTextBox();
             this.okBtn = new System.Windows.Forms.Button();
             this.cancelBtn = new System.Windows.Forms.Button();
+            this.enterPwMsg = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(18, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 0;
@@ -45,7 +46,7 @@
             // 
             // examPassword
             // 
-            this.examPassword.Location = new System.Drawing.Point(103, 10);
+            this.examPassword.Location = new System.Drawing.Point(108, 33);
             this.examPassword.Name = "examPassword";
             this.examPassword.Size = new System.Drawing.Size(135, 20);
             this.examPassword.TabIndex = 8;
@@ -53,7 +54,7 @@
             // 
             // okBtn
             // 
-            this.okBtn.Location = new System.Drawing.Point(51, 45);
+            this.okBtn.Location = new System.Drawing.Point(57, 65);
             this.okBtn.Name = "okBtn";
             this.okBtn.Size = new System.Drawing.Size(75, 23);
             this.okBtn.TabIndex = 9;
@@ -64,7 +65,7 @@
             // cancelBtn
             // 
             this.cancelBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelBtn.Location = new System.Drawing.Point(132, 45);
+            this.cancelBtn.Location = new System.Drawing.Point(138, 65);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 10;
@@ -72,18 +73,29 @@
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
             // 
+            // enterPwMsg
+            // 
+            this.enterPwMsg.AutoSize = true;
+            this.enterPwMsg.Location = new System.Drawing.Point(61, 9);
+            this.enterPwMsg.Name = "enterPwMsg";
+            this.enterPwMsg.Size = new System.Drawing.Size(145, 13);
+            this.enterPwMsg.TabIndex = 11;
+            this.enterPwMsg.Text = "Enter password to view exam";
+            // 
             // EnterPasswordForm
             // 
             this.AcceptButton = this.okBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelBtn;
-            this.ClientSize = new System.Drawing.Size(256, 80);
+            this.ClientSize = new System.Drawing.Size(256, 97);
+            this.Controls.Add(this.enterPwMsg);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.okBtn);
             this.Controls.Add(this.examPassword);
             this.Controls.Add(this.label1);
             this.Name = "EnterPasswordForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Exam Password";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -96,5 +108,6 @@
         private System.Windows.Forms.MaskedTextBox examPassword;
         private System.Windows.Forms.Button okBtn;
         private System.Windows.Forms.Button cancelBtn;
+        private System.Windows.Forms.Label enterPwMsg;
     }
 }

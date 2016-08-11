@@ -16,6 +16,11 @@ namespace ExamMaker.Presenters.Presenters
             _view.LoadAllRecords();
         }
 
+        public void SelectExam(int examIndex)
+        {
+            _view.SelectExam(examIndex);
+        }
+
 
     }
 }

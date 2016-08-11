@@ -53,6 +53,7 @@
             this.userListGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.userListGridView.Size = new System.Drawing.Size(361, 195);
             this.userListGridView.TabIndex = 0;
+            this.userListGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.userListGridView_dataBindingComplete);
             // 
             // addUserBtn
             // 
@@ -115,6 +116,7 @@
             // 
             // ManageUserScreen
             // 
+            this.AcceptButton = this.searchBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(385, 310);
@@ -125,6 +127,7 @@
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.addUserBtn);
             this.Controls.Add(this.userListGridView);
+            this.MaximizeBox = false;
             this.Name = "ManageUserScreen";
             this.Text = "Manage Users";
             this.Load += new System.EventHandler(this.ManageUserScreen_Load);

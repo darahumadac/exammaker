@@ -38,6 +38,7 @@ namespace ExamMaker.Views.Basic
         public void LoadAllRecords()
         {
             _userRepository.Revert();
+
             userListGridView.DataSource = _userRepository.GetAll()
                 .OrderBy(u => u.UserId).ToList();
         }
@@ -87,6 +88,19 @@ namespace ExamMaker.Views.Basic
                 .ToList();
             }
             
+        }
+
+        private void enableUserManagementButtons(bool enabled)
+        {
+            changePwBtn.Enabled = enabled;
+
+        }
+
+        private void userListGridView_dataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            bool hasUsers = userListGridView.RowCount > 0;
+
+            enableUserManagementButtons(hasUsers);
         }
 
     }

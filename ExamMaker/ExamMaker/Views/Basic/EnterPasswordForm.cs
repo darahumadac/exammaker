@@ -29,6 +29,8 @@ namespace ExamMaker.Views.Basic
 
             _examPassword = examPassword;
             _examView = examView;
+            
+            enterPwMsg.Text = "Enter password to view exam";
         }
 
         public EnterPasswordForm(string examPassword, Repository<Exam> examRepository, Exam examRecord, ExamListPresenter examListPresenter)
@@ -39,6 +41,8 @@ namespace ExamMaker.Views.Basic
             _examRepository = examRepository;
             _examRecord = examRecord;
             _examListPresenter = examListPresenter;
+
+            enterPwMsg.Text = "Enter password to delete exam";
         }
 
         private void okBtn_Click(object sender, EventArgs e)
@@ -54,10 +58,23 @@ namespace ExamMaker.Views.Basic
                 }
                 else if(_examRepository != null && _examRecord != null)
                 {
+                    List<Exam> examList =
+                        _examRepository.GetAll().FindAll(ex => ex.UserId == Program.LoggedInUser.UserId);
+                    
+                    int examIndex = examList
+                        .OrderBy(ex => ex.ScheduledExamDate)
+                        .ToList().IndexOf(_examRecord);
+
                     _examRepository.Delete(_examRecord);
                     _examRepository.Save();
 
                     _examListPresenter.LoadAllRecords();
+
+                    if (examList.Count > 0)
+                    {
+                        _examListPresenter.SelectExam(examIndex);
+                    }
+                    
                 }
             }
             else

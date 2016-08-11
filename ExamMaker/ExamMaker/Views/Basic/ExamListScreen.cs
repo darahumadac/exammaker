@@ -52,8 +52,19 @@ namespace ExamMaker.Views.Basic
 
             examListGrid.DataSource = examRecords.ToList();
 
+            if (examRecords.Any())
+            {
+                examListGrid.Rows[0].Selected = true;
+            }
+            
+
             totalExamsLbl.Text = String.Format(_resourceManager.GetString("totalExamLbl"), examRecords.Count());
 
+        }
+
+        public void SelectExam(int examIndex)
+        {
+            examListGrid.Rows[examIndex].Selected = true;
         }
 
         private void examListGrid_rowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -63,12 +74,14 @@ namespace ExamMaker.Views.Basic
 
         private void viewOrEditExamBtn_Click(object sender, EventArgs e)
         {
-            _selectedExamRecord = (Exam)examListGrid.SelectedRows[0].DataBoundItem;
+
+            _selectedExamRecord = (Exam) examListGrid.SelectedRows[0].DataBoundItem;
             IExamView examView = new ExamScreen(_selectedExamRecord,
                 _examRepository, _examItemsRepository, _optionRepository);
 
             EnterPasswordForm passwordForm = new EnterPasswordForm(_selectedExamRecord.ExamPassword, examView);
             passwordForm.Show();
+            
         }
 
         private void deleteExamBtn_Click(object sender, EventArgs e)
@@ -82,9 +95,35 @@ namespace ExamMaker.Views.Basic
             passwordForm.Show();
         }
 
-        private void ExamListScreen_activated(object sender, EventArgs e)
+        private void searchBtn_Click(object sender, EventArgs e)
         {
-            _examListPresenter.LoadAllRecords(); 
+            string examName = searchExamNameTxt.Text;
+            if (string.IsNullOrEmpty(examName))
+            {
+                _examListPresenter.LoadAllRecords();
+            }
+            else
+            {
+                examListGrid.DataSource =
+                    _examRepository.GetAll()
+                    .FindAll(ex => ex.UserId == Program.LoggedInUser.UserId)
+                    .Where(ex => ex.ExamName.ToLower().Contains(examName.ToLower()))
+                    .OrderBy(ex => ex.ScheduledExamDate)
+                    .ToList();
+
+                totalExamsLbl.Text = string.Format("{0} exams",examListGrid.RowCount);
+            }
+            
+        }
+
+        private void examListGrid_dataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            bool hasExam = examListGrid.RowCount > 0;
+
+            viewOrEditExamBtn.Enabled = hasExam;
+            deleteExamBtn.Enabled = hasExam;
+            copyBtn.Enabled = hasExam;
+           
         }
     }
 }

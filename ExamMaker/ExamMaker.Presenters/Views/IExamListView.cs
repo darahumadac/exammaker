@@ -4,5 +4,6 @@ namespace ExamMaker.Presenters.Views
     {
         void Show();
         void LoadAllRecords();
+        void SelectExam(int examIndex);
     }
 }

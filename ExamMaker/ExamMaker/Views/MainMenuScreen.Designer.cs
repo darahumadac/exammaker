@@ -33,6 +33,7 @@
             this.viewOrEditExamBtn = new System.Windows.Forms.Button();
             this.welcomeLbl = new System.Windows.Forms.Label();
             this.manageUserBtn = new System.Windows.Forms.Button();
+            this.logoutLink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // createNewExamBtn
@@ -86,15 +87,28 @@
             this.manageUserBtn.Visible = false;
             this.manageUserBtn.Click += new System.EventHandler(this.manageUserBtn_Click);
             // 
+            // logoutLink
+            // 
+            this.logoutLink.AutoSize = true;
+            this.logoutLink.Location = new System.Drawing.Point(269, 19);
+            this.logoutLink.Name = "logoutLink";
+            this.logoutLink.Size = new System.Drawing.Size(45, 13);
+            this.logoutLink.TabIndex = 4;
+            this.logoutLink.TabStop = true;
+            this.logoutLink.Text = "Log Out";
+            this.logoutLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logoutLink_LinkClicked);
+            // 
             // MainMenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(329, 163);
+            this.Controls.Add(this.logoutLink);
             this.Controls.Add(this.manageUserBtn);
             this.Controls.Add(this.welcomeLbl);
             this.Controls.Add(this.viewOrEditExamBtn);
             this.Controls.Add(this.createNewExamBtn);
+            this.MaximizeBox = false;
             this.Name = "MainMenuScreen";
             this.Text = "Exam Maker Main Menu";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainMenu_Closed);
@@ -110,6 +124,7 @@
         private System.Windows.Forms.Button viewOrEditExamBtn;
         private System.Windows.Forms.Label welcomeLbl;
         private System.Windows.Forms.Button manageUserBtn;
+        private System.Windows.Forms.LinkLabel logoutLink;
     }
 }
 

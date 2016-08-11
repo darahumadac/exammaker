@@ -51,6 +51,12 @@ namespace ExamMaker.Views
 
         private void MainMenu_Closed(object sender, FormClosedEventArgs e)
         {
+            logOut();
+        }
+
+        private void logOut()
+        {
+            Program.LoggedInUser = new User();
             _loginScreen.Show();
         }
 
@@ -59,5 +65,13 @@ namespace ExamMaker.Views
             IUserListView manageUserListScreen = new ManageUserScreen(_appRepository.UserRepository);
             manageUserListScreen.Show();
         }
+
+        private void logoutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            logOut();
+            Dispose();
+        }
+
+        
     }
 }
