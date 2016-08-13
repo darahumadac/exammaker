@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -38,25 +40,34 @@ namespace ExamMaker.Views.Basic
 
         private void updatePwBtn_Click(object sender, EventArgs e)
         {
-            
-            if (currentPwText.Text.Equals(_selectedUser.Password) 
-                && !string.IsNullOrEmpty(newPasswordTxt.Text)
-                && !string.IsNullOrEmpty(confirmNewPwTxt.Text)
-                && newPasswordTxt.Text.Equals(confirmNewPwTxt.Text))
+            try
             {
-                _selectedUser.Password = newPasswordTxt.Text;
-                _userListView.Save();
+                if (currentPwText.Text.Equals(_selectedUser.Password)
+                    && !string.IsNullOrEmpty(newPasswordTxt.Text)
+                    && !string.IsNullOrEmpty(confirmNewPwTxt.Text)
+                    && newPasswordTxt.Text.Equals(confirmNewPwTxt.Text))
+                {
+                    _selectedUser.Password = newPasswordTxt.Text;
+                    _userListView.Save();
 
-                updateMsg.Text = "Password changed";
-                updateMsg.ForeColor = Color.Green;
+                    updateMsg.Text = "Password changed";
+                    updateMsg.ForeColor = Color.Green;
 
-                updatePwBtn.Enabled = false;
+                    updatePwBtn.Enabled = false;
+                }
+                else
+                {
+                    updateMsg.Text = "Passwords do not match";
+                    updateMsg.ForeColor = Color.Red;
+                }
             }
-            else
+            catch (DbEntityValidationException ex)
             {
-                updateMsg.Text = "Passwords do not match";
+                _userListView.Revert();
+                updateMsg.Text = "Password: At least 6 characters";
                 updateMsg.ForeColor = Color.Red;
             }
+           
         }
 
         private void closeBtn_Click(object sender, EventArgs e)

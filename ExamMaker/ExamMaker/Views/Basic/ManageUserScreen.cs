@@ -65,6 +65,11 @@ namespace ExamMaker.Views.Basic
             _userRepository.Save();
         }
 
+        public void Revert()
+        {
+            _userRepository.Revert();
+        }
+
         private void changePwBtn_Click(object sender, EventArgs e)
         {
             User selectedUser = (User)userListGridView.SelectedRows[0].DataBoundItem;

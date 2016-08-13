@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201608101116371_AddedIsActiveToUser.Designer.cs">
       <DependentUpon>201608101116371_AddedIsActiveToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608111138470_AddedPasswordLengthToUser.cs" />
+    <Compile Include="Migrations\201608111138470_AddedPasswordLengthToUser.Designer.cs">
+      <DependentUpon>201608111138470_AddedPasswordLengthToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DateRangeAttribute.cs" />
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\ExamItem.cs" />
@@ -155,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608101116371_AddedIsActiveToUser.resx">
       <DependentUpon>201608101116371_AddedIsActiveToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608111138470_AddedPasswordLengthToUser.resx">
+      <DependentUpon>201608111138470_AddedPasswordLengthToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -125,5 +125,55 @@ namespace ExamMaker.Views.Basic
             copyBtn.Enabled = hasExam;
            
         }
+
+        private void copyBtn_Click(object sender, EventArgs e)
+        {
+            _selectedExamRecord = (Exam)examListGrid.SelectedRows[0].DataBoundItem;
+
+            Exam examCopy = new Exam()
+            {
+                UserId = _selectedExamRecord.UserId,
+                ExamName = string.Format("Copy of {0}", _selectedExamRecord.ExamName),
+                ExamPassword = Program.LoggedInUser.Password,
+                ScheduledExamDate = _selectedExamRecord.ScheduledExamDate,
+                Type = _selectedExamRecord.Type
+            };
+
+            _examRepository.Add(examCopy);
+            _examRepository.Save();
+
+            
+            foreach (ExamItem item in _selectedExamRecord.ExamItems)
+            {
+                ExamItem examItemCopy = new ExamItem()
+                {
+                    ExamId = examCopy.ExamId,
+                    ItemNumber = item.ItemNumber,
+                    Question = item.Question,
+                    Answer = item.Answer,
+                    ItemType = item.ItemType
+                };
+
+                _examItemsRepository.Add(examItemCopy);
+                _examItemsRepository.Save();
+
+                foreach (Option option in item.Options)
+                {
+                    Option optionCopy = new Option()
+                    {
+                        ExamItemId = examItemCopy.ExamItemId,
+                        OptionName = option.OptionName,
+                        Description = option.Description,
+                        IsCorrectAnswer = option.IsCorrectAnswer
+                    };
+
+                    _optionRepository.Add(optionCopy);
+                }
+                _optionRepository.Save();
+            }
+
+            LoadAllRecords();
+
+        }
     }
 }

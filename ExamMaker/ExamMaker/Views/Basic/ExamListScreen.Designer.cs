@@ -95,6 +95,7 @@
             this.copyBtn.TabIndex = 22;
             this.copyBtn.Text = "Copy Exam";
             this.copyBtn.UseVisualStyleBackColor = true;
+            this.copyBtn.Click += new System.EventHandler(this.copyBtn_Click);
             // 
             // label1
             // 

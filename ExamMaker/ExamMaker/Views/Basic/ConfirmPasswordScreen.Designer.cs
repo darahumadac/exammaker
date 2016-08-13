@@ -43,7 +43,7 @@
             // 
             this.updateMsg.AutoSize = true;
             this.updateMsg.ForeColor = System.Drawing.Color.Red;
-            this.updateMsg.Location = new System.Drawing.Point(67, 99);
+            this.updateMsg.Location = new System.Drawing.Point(65, 99);
             this.updateMsg.Name = "updateMsg";
             this.updateMsg.Size = new System.Drawing.Size(98, 13);
             this.updateMsg.TabIndex = 21;
